@@ -1,8 +1,14 @@
-const Teacher=require('../models/teacher')
- 
+const Teacher=require('../models/teacher') 
+const jwt=require('jsonwebtoken')
+
 const signup = async (req, res) => {
-    try {
-        
+    try { 
+      const checkTeacher=await Teacher.find({email:req.body.email});
+     
+      if(checkTeacher[0])
+      {
+        throw new Error('email in use')
+      }
       const teacher = new Teacher(req.body); 
       await teacher.save();
       res.status(201).send({ teacher });
@@ -31,7 +37,27 @@ const login=async(req,res)=>{
         res.status(400).send({message:error.message})
     }
 }
+
+const stillLogin=(req,res)=>{ 
+  try { 
+      const token=req.get('Authorization').split(' ')[1]; 
+      console.log(token)
+      const  decodedToken=jwt.verify(token,'fo2shaDoksha');
+      const teacher=Teacher.find({id:decodedToken.teacherid});
+      
+     if(!teacher)
+     {
+      throw new Error("this user not authorized");
+     } 
+     res.json({message:'valid token',status:200})
+  } catch (error) {
+    console.log(error)
+      res.json({ message: "this user is un authorized",status:401 });
+  }  
+ 
+}
 module.exports={
     signup,
-    login
+    login,
+    stillLogin
 }

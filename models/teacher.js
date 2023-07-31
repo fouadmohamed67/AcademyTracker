@@ -60,7 +60,7 @@ const database=require('../connections/database')
             const teacher = new Teacher({ ...result[0] });
            
             if (!teacher.email) {
-              throw new Error("not found");
+              throw new Error("user not found");
             } 
             const isMatch = await bcrypt.compare(password, teacher.password);
             if (!isMatch) {

@@ -18,6 +18,6 @@ router.put('/signUp',[
 ] ,authController.signup)
 
 router.post('/login' ,authController.login)
-router.get('/ChekToken' )
+router.get('/ChekToken',authController.stillLogin)
 
 module.exports=router
