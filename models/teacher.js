@@ -44,8 +44,7 @@ const database=require('../connections/database')
             return `${key}=?`;
           }); 
           const values = Object.values(searchItem); 
-          const Query = `SELECT * from teacher Where ${keys.toString()}`;
-         
+          const Query = `SELECT * from teacher Where ${keys.toString()}`; 
           let [rows, fields] = await database.execute(Query, values);
           return rows;
         } catch (e) {
@@ -53,7 +52,7 @@ const database=require('../connections/database')
           return false;
         }
     }
-
+    
     static async findByCredentials(email,password){
         try {
             const result = await this.find({ email }); 

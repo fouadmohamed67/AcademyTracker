@@ -43,12 +43,14 @@ const courseRoute=require('./routes/course')
 const StudentRoute=require('./routes/student')
 const lectureRoute=require('.//routes/lecture')
 const lessonRouter=require('./routes/lesson')
+const teacherRoute=require('./routes/teacher')
 app.use('/auth',authRoute)
 app.use('/',levelRoute)
 app.use('/',courseRoute)
 app.use('/',StudentRoute)
 app.use('/',lectureRoute)
 app.use('/',lessonRouter) 
+app.use('/',teacherRoute)
 
 app.listen(3000, async () => {
     console.log(`listening on port 3000`);  

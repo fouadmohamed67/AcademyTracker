@@ -33,25 +33,23 @@ const login=async(req,res)=>{
             throw new Error("email or password not correct");
           }
     } catch (error) {
-        console.log(error)
+        
         res.status(400).send({message:error.message})
     }
 }
 
-const stillLogin=(req,res)=>{ 
+const stillLogin=async(req,res)=>{ 
   try { 
-      const token=req.get('Authorization').split(' ')[1]; 
-      console.log(token)
-      const  decodedToken=jwt.verify(token,'fo2shaDoksha');
-      const teacher=Teacher.find({id:decodedToken.teacherid});
-      
+      const token=req.get('Authorization').split(' ')[1];  
+      const  decodedToken=jwt.verify(token,'fo2shaDoksha'); 
+      const teacher=await Teacher.find({id:decodedToken.id}); 
      if(!teacher)
      {
       throw new Error("this user not authorized");
      } 
      res.json({message:'valid token',status:200})
   } catch (error) {
-    console.log(error)
+   
       res.json({ message: "this user is un authorized",status:401 });
   }  
  
