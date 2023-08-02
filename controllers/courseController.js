@@ -14,7 +14,9 @@ const  createCourse=async(req,res)=>{
 const deleteCourse = async (req, res) => {
      try {
       const id=req.query.id;
+      console.log(id)
       const result=await Course.deleteCourse(id);
+     
       res.status(201).send({ message:"Course deleted" });
      } catch (error) {
       res.status(409).send({ message:error.message });

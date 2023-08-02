@@ -28,8 +28,26 @@ const getLevels=async(req,res)=>{
       res.status(409).send({ message:error.message }); 
     }
 }
+const studentPerLevel=async(req,res)=>{
+    try {
+        const countStudent=await Level.studentPerLevel();
+        res.status(201).send({ countStudent });
+    } catch (error) {
+        res.status(409).send({ message:error.message }); 
+    }
+}
+const coursesPerLevel=async(req,res)=>{
+    try {
+        const countCourses=await Level.coursesPerLevel();
+        res.status(201).send({ countCourses });
+    } catch (error) {
+        res.status(409).send({ message:error.message }); 
+    }
+}
 module.exports={
     createLevel,
     deleteLevel,
-    getLevels
+    getLevels,
+    studentPerLevel,
+    coursesPerLevel
 }

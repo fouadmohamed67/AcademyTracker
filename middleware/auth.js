@@ -5,7 +5,8 @@ const isAuth=async (req,res,next)=>{
     try { 
         const token=req.get('Authorization').split(' ')[1]; 
         const  decodedToken=jwt.verify(token,'fo2shaDoksha');
-        const teacher=Teacher.find({id:decodedToken.id});
+        const teacher=await Teacher.find({id:decodedToken.id});
+        
        if(!teacher[0])
        {
         throw new Error("this user not authorized");

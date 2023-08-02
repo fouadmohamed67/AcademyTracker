@@ -20,7 +20,7 @@ class Course{
     }
     static async getAllCourses(){
         try{
-            let [rows,fields]=await database.execute("select * from course");
+            let [rows,fields]=await database.execute("select course.id,course.courseName,level.id as levelId,level.levelName from course,level where course.levelId=level.id");
             return rows
         }
         catch(error){
@@ -37,9 +37,11 @@ class Course{
     }
    static async deleteCourse(id){
         try {
+            console.log(id)
             const result=await database.execute("delete from course where id = ?",[id]);
             return true
         } catch (error) {
+            console.log(error)
             throw new Error (error.message)
         }
     }
