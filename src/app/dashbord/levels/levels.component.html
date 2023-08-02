@@ -1,0 +1,49 @@
+<!--form add-->
+<div *ngIf="message"   [ngClass]="typeMessage ? 'bg-'+typeMessage+'-100'+' ' :'' " class="  my-2  border px-4 py-3 rounded relative" role="alert">
+    <strong class="font-bold">{{message}}</strong> 
+</div>
+<div id="hiddenForm" [ngClass]="hidden ? 'hidden' : '' " class="  w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] ">
+    <div class=" w-full max-w-md  ">
+        <!-- Modal content -->
+        <div (click)="toggleClass()" class="font-bold cursor-pointer" >x</div>
+        <div class=" bg-white rounded-lg shadow  "> 
+            <div class="px-6 py-6 lg:px-8"> 
+                <h3 class="mb-4 text-xl font-medium text-gray-900 ">post information</h3>
+                <form [formGroup]="form" (ngSubmit)="createlevel(form)" class="space-y-6">
+                    <div>
+                        <label for="levelName" class="block mb-2 text-sm font-medium text-gray-900  ">level Name </label>
+                        <input formControlName="levelName" type="text" name="levelName" id="levelName" class="bg-gray-50 border   text-gray-900 text-sm rounded-lg block w-full p-2.5"   required>
+                        <div class="bg-red-100 border border-red-400 text-red-700 my-1 px-4 py-1 rounded " *ngIf="getFormControl['levelName'].errors && submited" >enter valid level Name</div>
+                    </div>
+                    <button type="submit" class="  text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">add Course</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--data-->
+<div [ngClass]="!hidden ? 'hidden' : ''" > 
+  <button (click)="toggleClass()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+      add new level
+  </button>
+   
+  <div *ngIf="levels && countStudent && countCourses " class=""> 
+      <div *ngFor="let level of levels;let i = index" class="my-5 md:w-2/4 m-1 bg-white border border-gray-200 rounded-lg shadow   "> 
+          <div class="p-5 flex flex-row justify-between">
+              <div class="text-2xl	">
+                  {{level.levelName}}
+              </div> 
+              <div >
+                  <div *ngIf="countStudent &&countCourses" class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mx-2 mb-2">{{countStudent[i].countStudent}} student </div>
+                  <div *ngIf="countStudent &&countCourses" class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mx-2 mb-2">{{countCourses[i].countCourse}} course </div>
+
+                  <button (click)="deletelevel( level.id )" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                      delete
+                  </button>
+                   
+              </div> 
+              
+          </div>
+      </div>
+  </div>
+</div>
