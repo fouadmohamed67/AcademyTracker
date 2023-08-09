@@ -19,6 +19,8 @@ import { LecturesComponent } from './dashbord/lectures/lectures.component';
 import { LessonsComponent } from './dashbord/lessons/lessons.component';
 import { LevelsComponent } from './dashbord/levels/levels.component';
 import { CoursesComponent } from './dashbord/courses/courses.component';
+import { ManageStudentComponent } from './dashbord/manage-student/manage-student.component';
+import { StudentCoursesComponent } from './dashbord/student-courses/student-courses.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,7 +33,9 @@ import { CoursesComponent } from './dashbord/courses/courses.component';
     LecturesComponent,
     LessonsComponent,
     LevelsComponent,
-    CoursesComponent
+    CoursesComponent,
+    ManageStudentComponent,
+    StudentCoursesComponent
   ],
   exports: [
     HeaderComponent 

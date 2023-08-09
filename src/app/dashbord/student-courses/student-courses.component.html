@@ -1,0 +1,63 @@
+<div id="hiddenForm" [ngClass]="hidden ? 'hidden' : '' " class="  w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] ">
+    <div class=" w-full max-w-md  ">
+        <!-- Modal content -->
+        <div (click)="toggleClass()" class="font-bold cursor-pointer" >x</div>
+        <div class=" bg-white rounded-lg shadow  "> 
+            <div class="px-6 py-6 lg:px-8"> 
+                <h3 class="mb-4 text-xl font-medium text-gray-900 ">register student to course</h3>
+                <form [formGroup]="form" (ngSubmit)="registerAtCourse(form)" class="space-y-6">
+                    <div>
+                        <label for="day" class="block mb-2 text-sm font-medium text-gray-900  ">day </label>
+                        <select formControlName="day" id="day" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
+                            <option value="1">sat</option>
+                            <option value="2">sun</option>
+                            <option value="3">mon</option>
+                            <option value="4">tue</option>
+                            <option value="5">wed</option>
+                            <option value="6">thu</option>
+                            <option value="7">fri</option>
+
+                        </select>
+                        <div class="bg-red-100 border border-red-400 text-red-700 my-1 px-4 py-1 rounded " *ngIf="getFormControl['day'].errors && submited" >enter valid course Name</div>
+                    </div>
+                    <div *ngIf="availableCourses">
+                        <label for="courseId" class="block mb-2 text-sm font-medium text-gray-900">Course Name</label>
+                        <select formControlName="courseId" id="courseId" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
+                          <option *ngFor="let course of availableCourses" selected value="{{course.id}}">{{course.courseName}}</option> 
+                        </select>
+                        <div class="bg-red-100 border border-red-400 text-red-700 my-1 px-4 py-1 rounded " *ngIf="getFormControl['courseId'].errors && submited" >enter valid level Name</div>
+                    </div>
+                    <div >
+                        <label for="appointment" class="block mb-2 text-sm font-medium text-gray-900">appointment</label>
+                         <input  formControlName="appointment" type="time" class="bg-gray-50 border  text-gray-900 text-sm rounded-lg block w-full p-2.5"   required>
+                        <div class="bg-red-100 border border-red-400 text-red-700 my-1 px-4 py-1 rounded " *ngIf="getFormControl['courseId'].errors && submited" >enter valid level Name</div>
+                    </div>  
+                    <button type="submit" class="  text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">add Course</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--data-->
+<div [ngClass]="!hidden ? 'hidden' : ''" > 
+  <button (click)="toggleClass()" class="mb-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+      register at new course
+  </button>
+  <div *ngIf="message"   [ngClass]="typeMessage ? 'bg-'+typeMessage+'-100'+' ' :'' " class="  mt-2  border px-4 py-3 rounded relative" role="alert">
+      <strong class="font-bold">{{message}}</strong> 
+    </div> 
+  <div *ngIf="registeredCourses"> 
+    <div class="grid  border border-gray-200 rounded-lg shadow-sm md:mb-12 md:grid-cols-1">  
+        <div *ngFor="let course of registeredCourses" class="flex flex-col bg-white border-2 border-rounded border-gray-200 p-2">
+            <div class="p-2 mb-4 text-gray-500 flex flex-col">
+                <h3 class="text-gray-900 ">{{course.courseName}}</h3> 
+                <span class="">day: {{util.getDay(course.day)}}</span>
+                <p class="">appointment: {{util.reshapeTime(course.appointment)}} </p> 
+            </div> 
+            <button (click)="removeRegisteration( course.id )" class="bg-red-500 w-1/6  hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                remove Registeration
+            </button>
+        </div> 
+    </div>
+  </div>
+</div>

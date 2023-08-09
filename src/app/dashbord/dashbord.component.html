@@ -74,12 +74,15 @@
 -->
 <div class="flex flex-row">
    <app-categories class="w-1/4 z-0"></app-categories> 
-   <div class="p-4 w-3/4 ml-3">
-      <app-lectures *ngIf="lectures"></app-lectures>
-      <app-lessons *ngIf="lessons"></app-lessons>
-      <app-levels *ngIf="levels"></app-levels>
-      <app-students *ngIf="students"></app-students>
-      <app-courses *ngIf="courses"></app-courses>
-      <div *ngIf="dash">dash</div>
+   <div class="p-4 w-3/4 ml-3 sm:w-full sm:m-0">
+      <app-lectures *ngIf="components.lectures" ></app-lectures>
+      <app-lessons *ngIf="components.lessons"></app-lessons>
+      <app-levels *ngIf="components.levels"></app-levels>
+      <app-students *ngIf="components.students"></app-students>
+      <app-courses *ngIf="components.courses"></app-courses>
+      <app-manage-student *ngIf="components.manageStudent"></app-manage-student>
+      <app-student-courses *ngIf="components.studentCourses"></app-student-courses>
+      <div *ngIf="components.dash">dash</div>
    </div>
 </div>
+ 

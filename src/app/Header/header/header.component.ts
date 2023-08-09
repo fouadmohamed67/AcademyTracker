@@ -16,6 +16,7 @@ export class HeaderComponent {
    await this.http.get<any>('http://localhost:3000/teacher',{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
     .subscribe(res=>{  
        this.teacher=res.clearedTeacher 
+       localStorage.setItem('teacherId',res.clearedTeacher.id)
     })
     
   } 
@@ -25,6 +26,7 @@ export class HeaderComponent {
   
   logOut(){
     localStorage.removeItem('token');
+    localStorage.removeItem('teacherId')
     this.router.navigate(['login']);
   }
 }

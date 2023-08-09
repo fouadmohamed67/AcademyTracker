@@ -49,8 +49,7 @@ export class CoursesComponent {
     }  
   }
 
-  deleteCourse(id:number){
-    console.log(id)
+  deleteCourse(id:number){ 
       this.http.delete('http://localhost:3000/course?id='+id,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}}).subscribe({
         next:res=>{
           this.getCourses();  

@@ -6,51 +6,44 @@ import { Component } from '@angular/core';
   styleUrls: ['./dashbord.component.css']
 })
 export class DashbordComponent {
-  dash=true;
-  students=false;
-  levels=false;
-  lessons=false;
-  lectures=false;
-  courses=false;
+   components={
+    dash:true,
+    students:false,
+    levels:false,
+    lessons:false,
+    lectures:false,
+    courses:false,
+    manageStudent:false,
+    studentCourses:false
+  };
+  falseComponent={
+    dash:false,
+    students:false,
+    levels:false,
+    lessons:false,
+    lectures:false,
+    courses:false,
+    manageStudent:false,
+    studentCourses:false
+  } 
+  data:any;
+constructor(){ 
+  
+}
 
- public loadLecturesComponent(){
-    this.lectures=true;
-    this.dash=false;
-    this.students=false;
-    this.levels=false;
-    this.lessons=false;
-    this.courses=false;
-  }
-  public loadLevelsComponent(){
-    this.lectures=false;
-    this.students=false;
-    this.dash=false
-    this.levels=true;
-    this.lessons=false;
-    this.courses=false;
-  }
-  public loadLessonsComponent(){
-    this.lectures=false;
-    this.dash=false;
-    this.students=false;
-    this.levels=false;
-    this.lessons=true; 
-    this.courses=false;
-  }
-  public  loadStudentsComponent(){
-    this.lectures=false;
-    this.dash=false;
-    this.students=true;
-    this.levels=false;
-    this.lessons=false; 
-    this.courses=false;
-  }
-  public loadCoursesComponent(){
-    this.lectures=false;
-    this.dash=false;
-    this.students=false;
-    this.courses=true;
-    this.levels=false;
-    this.lessons=false;
-  }
+public loadComponent(componentName:any,data:object){
+  this.data=data;  
+  this.falseAll();
+  for (let property in this.components) {
+    if(property == componentName)
+    { 
+      this.components[property as keyof typeof this.components]=true
+    } 
+  } 
+ }
+
+falseAll(){
+  Object.assign(this.components,this.falseComponent)  
+} 
+  
 }
