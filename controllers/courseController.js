@@ -13,8 +13,7 @@ const  createCourse=async(req,res)=>{
 
 const deleteCourse = async (req, res) => {
      try {
-      const id=req.query.id;
-      console.log(id)
+      const id=req.query.id; 
       const result=await Course.deleteCourse(id);
      
       res.status(201).send({ message:"Course deleted" });
@@ -31,16 +30,25 @@ const getCourses=async(req,res)=>{
       res.status(409).send({ message:error.message }); 
     }
 }
+const getCoursesOfLevel=async(req,res)=>{
+    try { 
+        const courses=await Course.getCoursesOfLevel(req.params.id);
+        res.status(201).send({ courses });
+      } catch (error) {
+        res.status(409).send({ message:error.message }); 
+      }
+}
 ///////course student
 const registerAtCourse=async(req,res)=>{
     try {
         const studentId=req.body.studentId;
         const courseId=req.body.courseId;
         const day=req.body.day;
-        const appointment=req.body.appointment;
+        const appointment=req.body.appointment; 
         const result=await Course.registerAtCourse(studentId,courseId,day,appointment)
         res.status(201).send({ message:"Registration is done" });
     } catch (error) {
+        console.log(error)
         res.status(409).send({ message:error.message }); 
     }
 }
@@ -55,7 +63,7 @@ const removeRegistration=async(req,res)=>{
 }
 const coursesStudentRegistrationInfo =async(req,res)=>{
     try {
-        const id=req.body.id
+        const id=req.params.id
         const studentCourses=await Course.coursesStudentRegistrationInfo(id);
         res.status(201).send({ studentCourses });
       } catch (error) {
@@ -81,5 +89,6 @@ module.exports={
     registerAtCourse,
     removeRegistration,
     coursesStudentRegistrationInfo,
-    updateStudentCourse
+    updateStudentCourse,
+    getCoursesOfLevel
 }

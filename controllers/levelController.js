@@ -1,4 +1,5 @@
 const Level=require('../models/level')
+const jwt=require('jsonwebtoken')
 
 const  createLevel=async(req,res)=>{
     try {
@@ -30,7 +31,10 @@ const getLevels=async(req,res)=>{
 }
 const studentPerLevel=async(req,res)=>{
     try {
-        const countStudent=await Level.studentPerLevel();
+        const token=req.get('Authorization').split(' ')[1]; 
+        const  decodedToken=jwt.verify(token,'fo2shaDoksha');
+        const teacherId=decodedToken.id
+        const countStudent=await Level.studentPerLevel(teacherId);
         res.status(201).send({ countStudent });
     } catch (error) {
         res.status(409).send({ message:error.message }); 

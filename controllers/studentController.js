@@ -30,7 +30,7 @@ const getStudents=async(req,res)=>{
 }
 const getStudentsOfTeacher=async(req,res)=>{
     try {
-        const teacherId=req.body.teacherId
+        const teacherId=req.query.teacherId 
         const students=await Student.getAllStudentsOfTeacher(teacherId);
         res.status(201).send({ students });
       } catch (error) {
@@ -40,7 +40,7 @@ const getStudentsOfTeacher=async(req,res)=>{
 const findStudent=async (req,res)=>{
     try {
         const id=req.params.id
-        const student=await Student.find(id)
+        const student=await Student.find(id) 
         res.status(201).send({ student });
         
     } catch (error) {

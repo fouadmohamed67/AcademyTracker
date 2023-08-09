@@ -48,7 +48,7 @@ class Student{
     
     static async getAllStudentsOfTeacher(teacherId){
         try{
-            let [rows,fields]=await database.execute("select * from student where teacherId=?",[teacherId]);
+            let [rows,fields]=await database.execute("select *,student.id  from student,level where student.levelId=level.id and teacherId=?",[teacherId]);
             return rows
         }
         catch(error){
@@ -58,7 +58,7 @@ class Student{
 
     static async find(id){
         try {
-            let [rows,fields]=await database.execute("select * from student where id=?",[id]);
+            let [rows,fields]=await database.execute("select  *,student.id as studentId from student,level where student.levelId=level.id and  student.id=?",[id]);
             return rows[0]
         } catch (error) {
             throw new Error (error.message)

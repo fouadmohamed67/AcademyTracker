@@ -45,6 +45,16 @@ class Course{
             throw new Error (error.message)
         }
     }
+    static async getCoursesOfLevel(id){
+        try {
+            
+            let [rows,fields]=await database.execute("select *  from course where levelId = ?",[id]);
+            return rows
+        } catch (error) {
+            console.log(error)
+            throw new Error (error.message)
+        }
+    }
 
 
     /////////////////////student Course
@@ -90,9 +100,10 @@ class Course{
         }
     }
     static async coursesStudentRegistrationInfo(id){
-        try{
+        try{ 
             let [rows,fields]=await database.execute("select * from student ,course,level inner join student_course where student.id=student_course.studentId and level.id=student.levelId and course.id=student_course.courseId and student.id=?",[id]);
-            return rows
+            
+            return rows 
         }
         catch(error){
             throw new Error (error.message) 
