@@ -14,21 +14,13 @@ const fileStorage=multer.diskStorage({
 })
 const fileFilter=(req,file,cb)=>{  
     if(
-        file.mimetype === 'application/pdf'||
-        file.mimetype === 'application/msword'||
-        file.mimetype === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-     ){   
+        file.mimetype === 'application/pdf' ){   
         cb(null,true)
       }
       else{ 
         cb(null,false)
       }
 }  
-
-app.use(bodyParser.json())
-app.use(multer({storage:fileStorage,fileFilter:fileFilter}).single('lecture'))
-app.use('/lectures', express.static(path.join(__dirname,'lectures')))
- 
 app.use((req,res,next)=>{
     res.setHeader('Access-Control-Allow-Origin','http://localhost:4200')
     res.setHeader('Access-Control-Allow-Methods','GET, POST, PUT, PATCH, DELETE')
@@ -36,6 +28,11 @@ app.use((req,res,next)=>{
     res.setHeader('Access-Control-Allow-Credentials', true);
     next()
 }) 
+app.use(bodyParser.json())
+app.use(multer({storage:fileStorage,fileFilter:fileFilter}).single('lecture'))
+app.use('/lectures', express.static(path.join(__dirname,'lectures')))
+ 
+
  
 const authRoute=require('./routes/auth')
 const levelRoute=require('./routes/level')

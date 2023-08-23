@@ -27,7 +27,7 @@ const login=async(req,res)=>{
         if(teacher)
         { 
            const token=await teacher.generateToken()
-            res.status(200).send({teacherid:teacher.id,token});
+            res.status(200).send({teacherId:teacher.id,token});
         }
         else {
             throw new Error("email or password not correct");

@@ -10,10 +10,10 @@ class Lecture{
         this.pdfURL=pdfURL
     }
 
-   static async createLecture(lectureName,pdfURL,courseId){
+   static async createLecture(lectureName,pdfURL,courseId,teacherId){
         try{ 
-            let [rows,fields]=await database.query("insert into lecture (lectureName,pdfURL,courseId) VALUES (?,?,?)",
-            [lectureName,pdfURL,courseId])  
+            let [rows,fields]=await database.query("insert into lecture (lectureName,pdfURL,courseId,teacherId) VALUES (?,?,?,?)",
+            [lectureName,pdfURL,courseId,teacherId])  
             return rows
         }
         catch(error){    
@@ -29,9 +29,9 @@ class Lecture{
             throw new Error (error.message) 
         }
     }
-    static async getAllLecturesCourse(courseId){
-        try{
-            let [rows,fields]=await database.execute("select * from lecture where courseId=?",[courseId]);
+    static async getAllLecturesCourse(courseId,teacherId){
+        try{ 
+            let [rows,fields]=await database.execute("select * from lecture where courseId=? and teacherId=?",[courseId,teacherId]);
             return rows
         }
         catch(error){
@@ -53,9 +53,16 @@ class Lecture{
         } catch (error) {
             throw new Error (error.message)
         }
+    } 
+    static async getFile(lectureId){
+        try {
+            const [rows,values]=await database.execute("select * from lecture where id=?",[lectureId]); 
+            const pdfURL=rows[0].pdfURL; 
+            return pdfURL
+        } catch (error) {
+            throw new Error (error.message)
+        }
     }
-
-
    
 
 

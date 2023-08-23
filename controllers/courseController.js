@@ -38,6 +38,15 @@ const getCoursesOfLevel=async(req,res)=>{
         res.status(409).send({ message:error.message }); 
       }
 }
+const getCoursesById=async(req,res)=>{
+    try { 
+        const course=await Course.find(req.params.id);
+        res.status(201).send({ course });
+      } catch (error) {
+        res.status(409).send({ message:error.message }); 
+      }
+}
+
 ///////course student
 const registerAtCourse=async(req,res)=>{
     try {
@@ -74,6 +83,7 @@ const updateStudentCourse=async(req,res)=>{
     try {
         const id=req.body.id;
         const updatedData=req.body 
+        console.log(req.body)
        await  Course.findStudentCourseAndUpdate(id,updatedData);
        res.status(201).send({ message:'new data updated' });
     } catch (error) {
@@ -81,14 +91,82 @@ const updateStudentCourse=async(req,res)=>{
     }
 }
 
+const findStudent_course=async(req,res)=>{
+    try {
+        const id=req.params.id; 
+       const registeration =await Course.findStudent_course(id); 
+       res.status(201).send({ registeration });
+    } catch (error) {
+        res.status(409).send({ message:error.message }); 
+    }
+}
+
+
+
+/////for DashBord
+const getStudentsPerDay=async(req,res)=>{
+    try {
+        const teacherId=req.params.teacherId; 
+       const data =await  Course.getStudentsPerDay(teacherId)
+       res.status(201).send({ data });
+    } catch (error) {
+        res.status(409).send({ message:error.message }); 
+    }
+}
+
+const getnumLessonsOfDay=async(req,res)=>{
+    try {
+        const teacherId=req.params.teacherId; 
+        const data =await Course.getNumLessonsOfDay(teacherId)
+        res.status(201).send({ data });
+    } catch (error) {
+        res.status(409).send({ message:error.message });
+    }
+}
+
+const nextStudent=async(req,res)=>{
+    try {
+        const teacherId=req.params.teacherId; 
+        const student =await Course.nextStudent(teacherId)
+        res.status(201).send({ student });
+    } catch (error) {
+        res.status(409).send({ message:error.message });
+    }
+}
+
+const appointmentForWeek=async(req,res)=>{
+    try {
+        const teacherId=req.params.teacherId; 
+        const allAppoint =await Course.appointmentForWeek(teacherId)
+        let day;
+        let  appointments=[[],[],[],[],[],[],[]] 
+        for(let i=0;i<allAppoint.length;i++)
+        {
+         day=allAppoint[i].day  
+         appointments[day-1].push(allAppoint[i])
+        }
+        res.status(201).send({ appointments });
+    } catch (error) {
+        console.log(error)
+        res.status(409).send({ message:error.message });
+    }
+}
+
+
   
 module.exports={
     createCourse,
     deleteCourse,
     getCourses,
+    getCoursesById,
     registerAtCourse,
     removeRegistration,
     coursesStudentRegistrationInfo,
     updateStudentCourse,
-    getCoursesOfLevel
+    getCoursesOfLevel,
+    findStudent_course,
+    getStudentsPerDay,
+    getnumLessonsOfDay,
+    nextStudent,
+    appointmentForWeek
 }

@@ -46,12 +46,19 @@ class Student{
         }
     }
     
-    static async getAllStudentsOfTeacher(teacherId){
-        try{
-            let [rows,fields]=await database.execute("select *,student.id  from student,level where student.levelId=level.id and teacherId=?",[teacherId]);
+    static async getAllStudentsOfTeacher(searchData){
+        try{ 
+            let keys = Object.keys(searchData); 
+            keys = keys.map((key, index) => { 
+                return `${key}=?`;
+            });  
+            const values = Object.values(searchData);  
+            let updatedKeys=keys.toString().replace(','," and ")  
+            let [rows,fields]=await database.execute("select *,student.id  from student,level where student.levelId=level.id and "+updatedKeys.toString() ,values); 
             return rows
         }
         catch(error){
+            console.log(error)
             throw new Error (error.message) 
         }
     }
@@ -73,5 +80,6 @@ class Student{
             throw new Error (error.message)
         }
     }
+    
 }
 module.exports=Student

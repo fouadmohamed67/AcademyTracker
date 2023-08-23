@@ -6,5 +6,6 @@ const isAuth=require('../middleware/auth');
 
 router.post('/lecture',isAuth,lectureController.createLecture);
 router.delete('/lecture',isAuth,lectureController.deleteLecture);
-router.get('/getAllLecturesCourse',isAuth,lectureController.getAllLecturesCourse)
+router.get('/getAllLecturesCourse/:courseId',isAuth,lectureController.getAllLecturesCourse);
+router.get('/getFileLecture/:lectureId',lectureController.getFile);
  module.exports=router

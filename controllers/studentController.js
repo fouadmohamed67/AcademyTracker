@@ -29,9 +29,10 @@ const getStudents=async(req,res)=>{
     }
 }
 const getStudentsOfTeacher=async(req,res)=>{
-    try {
-        const teacherId=req.query.teacherId 
-        const students=await Student.getAllStudentsOfTeacher(teacherId);
+    try { 
+        const searchData=req.query 
+         
+        const students=await Student.getAllStudentsOfTeacher( searchData);
         res.status(201).send({ students });
       } catch (error) {
         res.status(409).send({ message:error.message }); 
