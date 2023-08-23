@@ -21,7 +21,7 @@ class Level{
     }
     static async getAllLevels(){
         try{
-            let [rows,fields]=await database.execute("select * from level");
+            let [rows,fields]=await database.execute("select * from level order by level.id");
             return rows
         }
         catch(error){
@@ -42,6 +42,24 @@ class Level{
             return true
         } catch (error) {
             throw new Error (error.message)
+        }
+    }
+    static async studentPerLevel(teacherId){
+        try{
+            let [rows,fields]=await database.execute("select level.id ,count(student.id) as countStudent from level left outer join student on level.id=student.levelId and student.teacherId=?  group by level.id order by level.id",[teacherId]);
+            return rows
+        }
+        catch(error){
+            throw new Error (error.message) 
+        }
+    }
+    static async coursesPerLevel(){
+        try{
+            let [rows,fields]=await database.execute("select level.id ,count(course.id) as countCourse from level left outer join course on level.id=course.levelId  group by level.id order by level.id");
+            return rows
+        }
+        catch(error){
+            throw new Error (error.message) 
         }
     }
 }
