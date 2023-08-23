@@ -9,13 +9,13 @@
                     <div>
                         <label for="day" class="block mb-2 text-sm font-medium text-gray-900  ">day </label>
                         <select formControlName="day" id="day" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
-                            <option value="1">sat</option>
-                            <option value="2">sun</option>
-                            <option value="3">mon</option>
-                            <option value="4">tue</option>
-                            <option value="5">wed</option>
-                            <option value="6">thu</option>
-                            <option value="7">fri</option>
+                            <option value="7">sat</option>
+                            <option value="1">sun</option>
+                            <option value="2">mon</option>
+                            <option value="3">tue</option>
+                            <option value="4">wed</option>
+                            <option value="5">thu</option>
+                            <option value="6">fri</option>
 
                         </select>
                         <div class="bg-red-100 border border-red-400 text-red-700 my-1 px-4 py-1 rounded " *ngIf="getFormControl['day'].errors && submited" >enter valid course Name</div>
@@ -47,16 +47,23 @@
       <strong class="font-bold">{{message}}</strong> 
     </div> 
   <div *ngIf="registeredCourses"> 
-    <div class="grid  border border-gray-200 rounded-lg shadow-sm md:mb-12 md:grid-cols-1">  
-        <div *ngFor="let course of registeredCourses" class="flex flex-col bg-white border-2 border-rounded border-gray-200 p-2">
-            <div class="p-2 mb-4 text-gray-500 flex flex-col">
-                <h3 class="text-gray-900 ">{{course.courseName}}</h3> 
-                <span class="">day: {{util.getDay(course.day)}}</span>
-                <p class="">appointment: {{util.reshapeTime(course.appointment)}} </p> 
-            </div> 
-            <button (click)="removeRegisteration( course.id )" class="bg-red-500 w-1/6  hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-                remove Registeration
+    <div class=" border border-gray-200 rounded-lg shadow-sm  w-full">  
+        <div *ngFor="let course of registeredCourses" class="flex flex-row bg-white border-2 border-rounded border-gray-200 p-2">
+            <div class="flex flex-col w-1/2">
+                <div class="p-2 mb-4 text-gray-500 flex flex-col">
+                    <h3 class="text-gray-900 ">{{course.courseName}}</h3> 
+                    <span class="">day: {{util.getDay(course.day)}}</span>
+                    <p class="">appointment: {{util.reshapeTime(course.appointment)}} </p> 
+                </div> 
+            </div>
+           <div class="flex flex-row space-x-4  w-1/4 m-auto">
+            <button (click)="dash.loadComponent('editRegistration',{RegisterationId:course.id})" class="w-1/4 px-4 py-2 bg-blue-400 hover:bg-blue-600 text-white rounded">
+                edit 
             </button>
+            <button (click)="removeRegisteration( course.id )" class="w-1/4 px-4 py-2 bg-red-400 hover:bg-red-600 text-white rounded">
+                remove  
+            </button> 
+           </div>
         </div> 
     </div>
   </div>

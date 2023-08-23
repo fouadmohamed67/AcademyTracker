@@ -13,12 +13,11 @@ export class HeaderComponent {
       this.getUserInfo();
   } 
  async getUserInfo(){
-   await this.http.get<any>('http://localhost:3000/teacher',{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
+    this.http.get<any>('http://localhost:3000/teacher',{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
     .subscribe(res=>{  
        this.teacher=res.clearedTeacher 
-       localStorage.setItem('teacherId',res.clearedTeacher.id)
-    })
-    
+       
+    }) 
   } 
    ngOnInit(){
   

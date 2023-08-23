@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-
+import { DashbordComponent } from '../dashbord.component';
 @Component({
   selector: 'app-courses',
   templateUrl: './courses.component.html',
@@ -16,7 +16,7 @@ export class CoursesComponent {
   message:any;
   typeMessage:any;
 
-  constructor(private http:HttpClient){
+  constructor(private http:HttpClient,public dash:DashbordComponent){
     this.form = new FormGroup({
       courseName: new FormControl('',[Validators.required,Validators.minLength(3)]),
       levelId: new FormControl('',[Validators.required ]), 

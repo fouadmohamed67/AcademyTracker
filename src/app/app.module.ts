@@ -2,7 +2,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
- 
+import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -20,7 +21,9 @@ import { LessonsComponent } from './dashbord/lessons/lessons.component';
 import { LevelsComponent } from './dashbord/levels/levels.component';
 import { CoursesComponent } from './dashbord/courses/courses.component';
 import { ManageStudentComponent } from './dashbord/manage-student/manage-student.component';
-import { StudentCoursesComponent } from './dashbord/student-courses/student-courses.component';
+import { StudentCoursesComponent } from './dashbord/student-courses/student-courses.component'; 
+import { EditRegistrationComponent } from './dashbord/student-courses/edit-registration/edit-registration.component';
+import { StudentsChartComponent } from './dashbord/students-chart/students-chart.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,12 +38,15 @@ import { StudentCoursesComponent } from './dashbord/student-courses/student-cour
     LevelsComponent,
     CoursesComponent,
     ManageStudentComponent,
-    StudentCoursesComponent
+    StudentCoursesComponent ,
+    EditRegistrationComponent,
+    StudentsChartComponent
   ],
   exports: [
     HeaderComponent 
   ],
   imports: [
+     CanvasJSAngularChartsModule,
     HttpClientModule,
     BrowserModule,
     FormsModule,

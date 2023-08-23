@@ -28,8 +28,11 @@ export class LoginComponent {
       testData.append('password',form.value.password);
       this.http.post<any>('http://localhost:3000/auth/login',testData)
       .subscribe({  
-        next: res=>{ 
+        next: res=>{  
+          console.log(res)
+            localStorage.setItem('teacherId',res.teacherId) 
             localStorage.setItem("token",res.token)
+           
         },
         error:err=>{ 
           this.errorMessage=err.error.message

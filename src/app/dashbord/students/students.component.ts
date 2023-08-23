@@ -32,6 +32,24 @@ export class StudentsComponent {
    this.getLevels(); 
   } 
 
+  onChange($event:any){ 
+   
+    const levelId=$event.target.value
+    const teacherId=localStorage.getItem('teacherId') 
+    if(isNaN(levelId))
+    {
+      this.http.get<any>('http://localhost:3000/studentOfTeacher?teacherId='+teacherId,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
+    .subscribe(res=>{    
+       this.students=res.students; 
+    }) 
+    return
+    } 
+    this.http.get<any>('http://localhost:3000/studentOfTeacher?teacherId='+teacherId+'&level.id='+levelId,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
+    .subscribe(res=>{    
+       this.students=res.students; 
+
+    }) 
+  }
   createStudent(form:FormGroup){
     console.log(this.form)
     this.submited=true
@@ -82,10 +100,11 @@ export class StudentsComponent {
   } 
   getStudents(){
     const teacherId=localStorage.getItem('teacherId')
-    
+     
     this.http.get<any>('http://localhost:3000/studentOfTeacher?teacherId='+teacherId,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
     .subscribe(res=>{   
        this.students=res.students;  
+       
     }) 
   }  
   toggleClass() { 

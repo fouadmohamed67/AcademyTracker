@@ -17,7 +17,7 @@ export class StudentCoursesComponent {
   registeredCourses:any;
   message:any;
   typeMessage:any;
-  constructor(private dash:DashbordComponent,private http:HttpClient,public util:UtilService){
+  constructor(public dash:DashbordComponent,private http:HttpClient,public util:UtilService){
     this.form = new FormGroup({
       day: new FormControl('',[Validators.required ]),
       courseId: new FormControl('',[Validators.required ]), 
@@ -61,8 +61,7 @@ export class StudentCoursesComponent {
       }) 
     }  
   }
-  getAvailableCourses(){ 
-     
+  getAvailableCourses(){  
     this.http.get<any>('http://localhost:3000/CoursesOfLevel/'+this.student.levelId,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
     .subscribe(res=>{  
       this.availableCourses=res.courses;
@@ -100,4 +99,5 @@ export class StudentCoursesComponent {
   get getFormControl() {
     return this.form.controls;
   }
+  
 }

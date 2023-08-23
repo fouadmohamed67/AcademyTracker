@@ -1,1 +1,68 @@
-<p>lectures works!</p>
+<!--form add-->
+<div id="hiddenForm" [ngClass]="hidden ? 'hidden' : '' " class="  w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] ">
+    <div class=" w-full max-w-md  ">
+        <!-- Modal content -->
+        <div (click)="toggleClass()" class="font-bold cursor-pointer" >x</div>
+        <div class=" bg-white rounded-lg shadow  "> 
+            <div class="px-6 py-6 lg:px-8"> 
+                <h3 class="mb-4 text-xl font-medium text-gray-900 ">post information</h3>
+                <form [formGroup]="form" (ngSubmit)="createLecture(form)" class="space-y-6">
+                    <div>
+                        <label for="lectureName" class="block mb-2 text-sm font-medium text-gray-900">lecture Name</label>
+                        <input formControlName="lectureName" type="text" name="lectureName" id="lectureName" class="bg-gray-50 border   text-gray-900 text-sm rounded-lg block w-full p-2.5"   required>
+                        <div class="bg-red-100 border border-red-400 text-red-700 my-1 px-4 py-1 rounded " *ngIf="getFormControl['lectureName'].errors && submited" >enter valid lecture Name</div>
+                    </div>
+                    <div  >
+                        <label class="block mb-2 text-sm font-medium text-gray-900  " for="default_size">lecture File</label>
+                        <input  (change)="onFileChange($event)"  accept="application/pdf" class="block w-full mb-5 text-sm   cursor-pointer bg-gray-50 "  type="file">
+                        <div class="bg-red-100 border border-red-400 text-red-700 my-1 px-4 py-1 rounded " *ngIf=" !file && submited" >chose file</div> 
+                    </div>  
+                    <button type="submit" class="  text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">add lecture</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>  
+
+<div [ngClass]="!hidden ? 'hidden' : ''" class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <div class="flex items-center justify-between mb-4">
+        <div>
+            <button (click)="toggleClass()" class="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-3 py-1.5  " type="button">add new lecture</button>
+        </div> 
+    </div>
+    <div *ngIf="course" class="flex flex-col  justify-between m-4">
+        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900  ">course Name : {{course.courseName}}</h5>
+        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900  ">level : {{course.levelName}}</h5>  
+    </div>
+    <table *ngIf="lectures  " class="w-full text-sm text-left text-gray-500  ">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50  ">
+            <tr>  
+                <th scope="col" class="px-6 py-3">
+                    name
+                </th> 
+                <th scope="col" class="px-6 py-3">
+                    Action
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let lecture of lectures;let i = index" class="bg-white border-b"> 
+                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap  ">
+                    {{lecture.lectureName}}
+                </th> 
+                <td class="px-6 py-4">
+                    <button (click)="deleteLecture( lecture.id )" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                        delete
+                    </button>
+                    <button   class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 mx-2 rounded">
+                        edit
+                    </button>
+                    <button (click)="downloadPDF(lecture.id)" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
+                        <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z"/></svg>
+                        <span>Download pdf</span>
+                      </button>
+                </td>  
+            </tr> 
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,28 @@
+<div *ngIf="registeration" class="  w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] ">
+    <div class=" w-full max-w-md  ">  
+        <div *ngIf="message"  class=" bg-green-100 mt-2  border px-4 py-3 rounded relative" role="alert">
+            <strong class="font-bold">{{message}}</strong> 
+          </div> 
+        <div class=" bg-white rounded-lg shadow  "> 
+            <div class="px-6 py-6 lg:px-8"> 
+                <h3 class="mb-4 text-xl font-medium text-gray-900 ">update student registration</h3>
+
+                <form [formGroup]="form" (ngSubmit)="update(form)" class="space-y-6">
+                    <div>
+                        <label for="day" class="block mb-2 text-sm font-medium text-gray-900  ">day </label>
+                        <select  *ngIf="daysKey && daysValue"   formControlName="day" id="day" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
+                            <option *ngFor="let item of daysKey;let i index "  [selected]="item==registeration.day" >{{daysValue[item-1]}} </option>
+                        </select>
+                        <div class="bg-red-100 border border-red-400 text-red-700 my-1 px-4 py-1 rounded " *ngIf="getFormControl['day'].errors && submited" >chose course </div>
+                    </div> 
+                    <div >
+                        <label for="appointment" class="block mb-2 text-sm font-medium text-gray-900">appointment</label>
+                         <input  formControlName="appointment"   type="time" class="bg-gray-50 border  text-gray-900 text-sm rounded-lg block w-full p-2.5"   required>
+                        <div class="bg-red-100 border border-red-400 text-red-700 my-1 px-4 py-1 rounded " *ngIf="getFormControl['appointment'].errors && submited" >chose  appointment</div>
+                    </div>  
+                    <button type="submit" class="  text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">update</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -8,6 +8,11 @@
     <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50  ">
         <div onclick="closeSide()" class="font-bold cursor-pointer " >x</div>
        <ul class="space-y-2 font-medium">
+         <li>
+            <a (click)="dash.loadComponent('dash',{})" class="flex items-center p-2 text-gray-900 rounded-lg cursor-pointer">
+               <span class="ml-3">Home</span>
+            </a>
+         </li> 
           <li>
              <a (click)="dash.loadComponent('students',{})" class="flex items-center p-2 text-gray-900 rounded-lg cursor-pointer">
                 <span class="ml-3">students</span>
@@ -17,12 +22,7 @@
             <a (click)="dash.loadComponent('courses',{})" class="flex items-center p-2 text-gray-900 rounded-lg cursor-pointer">
                <span class="ml-3">courses</span>
             </a>
-         </li> 
-          <li>
-            <a (click)="dash.loadComponent('lectures',{})" class="flex items-center p-2 text-gray-900 rounded-lg cursor-pointer">
-               <span class="ml-3">lectures</span>
-            </a>
-         </li> 
+         </li>  
          <li>
             <a (click)="dash.loadComponent('lessons',{})" class="flex items-center p-2 text-gray-900 rounded-lg cursor-pointer"> 
                 <span class="ml-3">lessons</span>

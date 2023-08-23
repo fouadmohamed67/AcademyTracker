@@ -82,7 +82,106 @@
       <app-courses *ngIf="components.courses"></app-courses>
       <app-manage-student *ngIf="components.manageStudent"></app-manage-student>
       <app-student-courses *ngIf="components.studentCourses"></app-student-courses>
-      <div *ngIf="components.dash">dash</div>
+      <app-edit-registration  *ngIf="components.editRegistration"></app-edit-registration>
+      <div *ngIf="components.dash">
+          
+         <div >
+            <div class="grid grid-cols-1 sm:grid-cols-2  gap-4  mb-6   w-full text-start">
+               <div class="item  bg-gray-100 border-solid border-2 border-sky-200 rounded p-4">
+                  <h1>you have <span class="font-bold" *ngIf="countTotalStudentAcademy">{{countTotalStudentAcademy}}</span> students in your academy </h1> 
+               </div>
+               <div class="item  bg-gray-100 border-solid border-2 border-sky-200 rounded p-4">
+                  <h1>number of lectures today <span class="font-bold">{{lessonsOfToday}}</span></h1> 
+               </div> 
+               <div *ngIf="nextStudent" class="item  bg-gray-100 border-solid border-2 border-sky-200 rounded p-4">
+                  <h1>your next lecture with :  <span class="font-bold">{{nextStudent.firstName}} {{nextStudent.lastName}}</span> - level : <span class="font-bold">{{nextStudent.levelName}} </span></h1> 
+               </div>
+            </div>
+            <app-students-chart class="z-0"></app-students-chart>
+            <div *ngIf="appointments" class="appointments">
+               <table   class="w-full text-sm text-left text-gray-500 mt-6 ">
+                  <thead class="text-xs text-gray-700 uppercase bg-gray-50  ">
+                      <tr> 
+                          <th scope="col" class="px-6 py-3"> 
+                           day 
+                          </th>
+                          <th scope="col" class="px-6 py-3" colspan="9"> 
+                           students 
+                          </th>
+                          
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr class="bg-white border-b"> 
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap  ">
+                           sat
+                        </th>
+                         <td *ngFor="let appoint of appointments[6]" class="flo">
+                             <span> {{util.reshapeTime(appoint.appointment)}}</span>-<span> {{appoint.firstName}}</span>
+                         </td> 
+                      </tr> 
+                      <tr class="bg-white border-b"> 
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap  ">
+                           sun
+                        </th>
+                        <td *ngFor="let appoint of appointments[0]" > 
+                           {{appoint.firstName}}   <span> {{util.reshapeTime(appoint.appointment)}}</span>
+                         </td>
+                      </tr> 
+                      <tr class="bg-white border-b"> 
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap  ">
+                           mon
+                        </th>
+                        <td *ngFor="let appoint of appointments[1]" >
+                           {{appoint.firstName}} -  <span> {{util.reshapeTime(appoint.appointment)}}</span>
+                         </td>
+                      </tr> 
+                      <tr class="bg-white border-b"> 
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap  ">
+                           tue
+                        </th>
+                        <td *ngFor="let appoint of appointments[2]" >
+                           {{appoint.firstName}} - <span> {{util.reshapeTime(appoint.appointment)}}</span>
+                         </td>
+                      </tr> 
+                      <tr class="bg-white border-b"> 
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap  ">
+                           wed
+                        </th>
+                        <td *ngFor="let appoint of appointments[3]" >
+                           {{appoint.firstName}} -  <span> {{util.reshapeTime(appoint.appointment)}}</span>
+                         </td>
+                      </tr> 
+                      <tr class="bg-white border-b"> 
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap  ">
+                           thu
+                        </th>
+                        <td *ngFor="let appoint of appointments[4]" >
+                           {{appoint.firstName}}  <span> {{util.reshapeTime(appoint.appointment)}}</span>
+                         </td>
+                      </tr> 
+                      <tr class="bg-white border-b"> 
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap  ">
+                           fri
+                        </th>
+                        <td *ngFor="let appoint of appointments[5]" >
+                           {{appoint.firstName}} - <span> {{util.reshapeTime(appoint.appointment)}}</span>
+                         </td>
+                      </tr>  
+                      
+                  </tbody>
+              </table>
+               <p>{{appointments[0] .firstName}}</p>
+               <p>{{appointments[1].firstName}}</p>
+               <p>{{appointments[2].firstName}}</p>
+               <p>{{appointments[3].firstName}}</p>
+               <p>{{appointments[4].firstName}}</p>
+               <p>{{appointments[5].firstName}}</p>
+               <p>{{appointments[6].firstName}}</p>
+
+            </div>
+        </div>   
+      </div>
    </div>
 </div>
  

@@ -5,20 +5,26 @@ import { Injectable } from '@angular/core';
 })
 export class UtilService {
 
-  days={
-    1:"sat",
-    2:"sun",
-    3:"mon",
-    4:"tue",
-    5:"wed",
-    6:"thu",
-    7:"fri"
+ public days={
+    1:"sun",
+    2:"mon",
+    3:"tue",
+    4:"wed",
+    5:"thu",
+    6:"fri",
+    7:"sat"
   }
   constructor() { }
 
   getDay(index:number)
   {
    return Object.values(this.days)[index-1]
+  }
+  getDayIndex(value:any)
+  {
+   return Object.values(this.days).findIndex(o=>{ 
+    return (o==value)
+   })+1
   }
   reshapeTime(time:any){ 
     const splitedtime=time.split(':');

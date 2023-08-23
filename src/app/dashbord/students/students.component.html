@@ -55,6 +55,15 @@
     <div>
         <button (click)="toggleClass()" class="   text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-3 py-1.5  " type="button">add new student</button>
     </div>  
+    <div class="flex flex-row">
+        <div> 
+            <select  (change)="onChange($event)"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
+                <option selected>all students </option>
+                <option  *ngFor="let level of levels"  value="{{level.id}}">{{level.levelName}}</option>
+           </select>            
+        </div> 
+    </div>  
+    
     <div  *ngIf="students">  
         <div *ngFor="let student of students" class="">  
             <div class="flex flex-wrap  "> 
