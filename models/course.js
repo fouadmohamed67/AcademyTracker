@@ -121,7 +121,7 @@ class Course{
     }
     static async getNumLessonsOfDay(teacherId){
         try {
-            let [rows,fields]=await database.execute("SELECT count(*) as num FROM student_course inner join student  where student.teacherId=? and student.id=student_course.studentId  and dayofweek(current_timestamp())=school.student_course.day ",[teacherId])
+            let [rows,fields]=await database.execute("SELECT count(*) as num FROM student_course inner join student  where student.teacherId=? and student.id=student_course.studentId  and dayofweek(current_timestamp())= student_course.day ",[teacherId])
             return rows
         } catch (error) {
             throw new Error (error.message) 
@@ -129,7 +129,7 @@ class Course{
     }
     static async nextStudent(teacherId){
         try {
-            let [rows,fields]=await database.execute("SELECT * FROM  student_course inner join student ,level where student.teacherId=? and student.id=student_course.studentId and student.levelId=level.id and dayofweek(current_timestamp())=school.student_course.day and appointment >= current_time() order by(appointment)",[teacherId])
+            let [rows,fields]=await database.execute("SELECT * FROM  student_course inner join student ,level where student.teacherId=? and student.id=student_course.studentId and student.levelId=level.id and dayofweek(current_timestamp())= student_course.day and appointment >= current_time() order by(appointment)",[teacherId])
             return rows[0]
         } catch (error) {
             throw new Error (error.message) 
@@ -147,7 +147,7 @@ class Course{
 
     static async appointmentsOfToday(){
         try {
-            let [rows,fields]=await database.execute("SELECT *, student_course.id as courseStudentId FROM  student_course inner join student ,level where  student.id=student_course.studentId and student.levelId=level.id and dayofweek(current_timestamp())=school.student_course.day order by(appointment)")
+            let [rows,fields]=await database.execute("SELECT *, student_course.id as courseStudentId FROM  student_course inner join student ,level where  student.id=student_course.studentId and student.levelId=level.id and dayofweek(current_timestamp())= student_course.day order by(appointment)")
             return rows 
         } catch (error) {
             throw new Error (error.message) 
