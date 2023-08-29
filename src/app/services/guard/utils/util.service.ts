@@ -38,4 +38,11 @@ export class UtilService {
     }
     return hours+":"+min+" "+zone
   }
+  dateFromDateObject(dateObject:any){
+    const date = new Date(dateObject); 
+    let day = date.getDate();
+    let month = date.getMonth() + 1;
+    let year = date.getFullYear();  
+    return `${year}-${month}-${day}`;  
+  }
 }
