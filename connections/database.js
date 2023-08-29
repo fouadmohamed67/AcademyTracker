@@ -7,6 +7,7 @@ try {
             password:"root",
             database:"school"
         })
+        console.log('connected')
 } catch (error) {
     console.log(error)
 }

@@ -145,6 +145,15 @@ class Course{
         }
     }
 
+    static async appointmentsOfToday(){
+        try {
+            let [rows,fields]=await database.execute("SELECT *, student_course.id as courseStudentId FROM  student_course inner join student ,level where  student.id=student_course.studentId and student.levelId=level.id and dayofweek(current_timestamp())=school.student_course.day order by(appointment)")
+            return rows 
+        } catch (error) {
+            throw new Error (error.message) 
+        }
+    }
+
 
 
 

@@ -12,16 +12,18 @@ class Lesson{
         this.paied=paied;
     }
 
-   static async createLesson(Date,price,paied,lectureId,studentId,teacherId){
+   static async createLesson(Date,price,paied,lectureId,teacherId,courseStudentId){
         try{ 
-            let [rows,fields]=await database.query("insert into lesson (Date,price,paied,lectureId,studentId,teacherId) VALUES (?,?,?,?,?,?)",
-            [Date,price,paied,lectureId,studentId,teacherId])  
+            let [rows,fields]=await database.query("insert into lesson (Date,price,paied,lectureId,teacherId,courseStudentId) VALUES (?,?,?,?,?,?)",
+            [Date,price,paied,lectureId,teacherId,courseStudentId])  
             return rows
         }
-        catch(error){    
+        catch(error){   
+            console.log(error) 
             throw new Error (error.message)
         }
     }
+
     static async getAllLessonsOf(searchItem){ 
         try {
             let keys = Object.keys(searchItem);
@@ -39,14 +41,14 @@ class Lesson{
             return false;
           }
     } 
-    static async getAllLessonsOfDay(date){ 
+    static async getAllLessonsOfDay(date,teacherId){ 
         try {
            
-            const Query = `SELECT * from lesson Where Date(Date)=?`; 
-            let [rows, fields] = await database.execute(Query, [date]);
+            const formatedDate=new Date(date) 
+            const Query = "SELECT *,lesson.id as lessonId from lesson inner join student_course,student,course Where student_course.id=lesson.courseStudentId and student.id=student_course.studentId and course.id=student_course.courseId and   date(Date) = ? and lesson.teacherId=?"; 
+            let [rows, fields] = await database.execute(Query, [formatedDate,teacherId]);
             return rows;
-          } catch (e) {  
-
+          } catch (e) {   
             return e.message;
           }
     } 
@@ -66,6 +68,24 @@ class Lesson{
             throw new Error (error.message)
         }
     }  
+    static async findLessonAndUpdate(id,updatedData){
+        try {
+            
+            let keys = Object.keys(updatedData);
+            keys = keys.map((key, index) => { 
+                return `${key}=?`;
+            }); 
+            const values = Object.values(updatedData);
+            const QUERY = `UPDATE lesson set ${keys.toString()} where id=?`;
+            let [rows, fields] = await database.execute(QUERY, [...values, id]);
+            return true;
+        } catch (error) {
+            
+            throw new Error("cant update lesson");
+        }
+    }
+
+    
 
 }
 module.exports=Lesson

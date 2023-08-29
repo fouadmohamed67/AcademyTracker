@@ -1,4 +1,5 @@
 const Lesson=require('../models/lesson'); 
+const Course=require('../models/course')
 const  createLesson=async(req,res)=>{
     try { 
         const date=req.body.date;
@@ -7,8 +8,8 @@ const  createLesson=async(req,res)=>{
         const lectureId=req.body.lectureId;
         const studentId= req.body.studentId;
         const TeacherId=req.body.TeacherId;   
-        const lecture=await Lesson.createLesson(date,price,paied,lectureId,studentId,TeacherId);
-        res.status(201).send({ lecture }); 
+        const lesson=await Lesson.createLesson(date,price,paied,lectureId,studentId,TeacherId);
+        res.status(201).send({ lesson }); 
     } catch (error) {  
         res.status(409).send({ message:error.message }); 
     }
@@ -39,16 +40,48 @@ const getAllLessonsOf= async(req,res)=>{
 }
 const getAllLessonsOfDate=async (req,res)=>{
   try {
-      const date=req.body.date;
-     const lessons= await Lesson.getAllLessonsOfDay(date)
+      const date=req.query.date;
+      const teacherId=req.query.teacherId;
+      
+     const lessons= await Lesson.getAllLessonsOfDay(date,teacherId)
+    
       res.status(201).send({ lessons });
   } catch (error) {
     res.status(409).send({ message:error.message }); 
   }
 } 
+const generateDailyLessons=async()=>{
+   try {
+    const appointmentsOfToday=await Course.appointmentsOfToday();
+    const date = new Date(); 
+    let day = date.getDate();
+    let month = date.getMonth() + 1;
+    let year = date.getFullYear();  
+    let currentDate = `${year}-${month}-${day}`;  
+    for(let i=0;i<appointmentsOfToday.length;i++)
+    { 
+       let DayTime= currentDate+' '+appointmentsOfToday[i].appointment 
+       await Lesson.createLesson(DayTime,0,0,null,appointmentsOfToday[i].teacherId,appointmentsOfToday[i].courseStudentId) 
+    } 
+   } catch (error) {
+      console.log(error)
+   }
+}
+const findLessonAndUpdate=async(req,res)=>{
+  try {
+      const id=req.body.id
+      const data=req.body.data 
+      await Lesson.findLessonAndUpdate(id,data);
+      res.status(201).send({ message:"success update" });
+  } catch (error) {
+    res.status(409).send({ message:error.message }); 
+  }
+}
 module.exports={
     createLesson,
     deleteLesson, 
     getAllLessonsOf,
-    getAllLessonsOfDate 
+    getAllLessonsOfDate,
+    generateDailyLessons,
+    findLessonAndUpdate
 }

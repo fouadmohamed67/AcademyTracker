@@ -3,6 +3,8 @@ const bodyParser=require('body-parser')
 const app=express()
 const path=require('path')
 const multer=require('multer')
+require('./scheduler/corn-job')
+
 
 const fileStorage=multer.diskStorage({
     destination:(req,file,cb)=>{ 
