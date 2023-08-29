@@ -9,6 +9,7 @@ try {
         })
         console.log('connected')
 } catch (error) {
+    console.log('not connected')
     console.log(error)
 }
 module.exports=connection
