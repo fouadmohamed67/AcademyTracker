@@ -109,8 +109,7 @@ const database=require('../connections/database')
             console.log(error)
             return false 
         }
-    }
- 
+    } 
     
  }
  module.exports=Teacher
