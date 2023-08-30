@@ -1,5 +1,5 @@
-<div id="hiddenForm" [ngClass]="hidden ? 'hidden' : '' " class="  w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] ">
-    <div class=" w-full max-w-md  ">
+<div id="hiddenForm" [ngClass]="hidden ? 'hidden' : '' " class=" w-full  p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] ">
+    <div class="w-full md:w-1/2 m-auto">
         <!-- Modal content -->
         <div (click)="toggleClass()" class="font-bold cursor-pointer" >x</div>
         <div class=" bg-white rounded-lg shadow  "> 
@@ -15,8 +15,7 @@
                             <option value="3">tue</option>
                             <option value="4">wed</option>
                             <option value="5">thu</option>
-                            <option value="6">fri</option>
-
+                            <option value="6">fri</option> 
                         </select>
                         <div class="bg-red-100 border border-red-400 text-red-700 my-1 px-4 py-1 rounded " *ngIf="getFormControl['day'].errors && submited" >enter valid course Name</div>
                     </div>
@@ -39,7 +38,7 @@
     </div>
 </div>
 <!--data-->
-<div [ngClass]="!hidden ? 'hidden' : ''" > 
+<div [ngClass]="!hidden ? 'hidden' : ''"   class="p-6 w-full"> 
   <button (click)="toggleClass()" class="mb-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
       register at new course
   </button>
@@ -48,7 +47,7 @@
     </div> 
   <div *ngIf="registeredCourses"> 
     <div class=" border border-gray-200 rounded-lg shadow-sm  w-full">  
-        <div *ngFor="let course of registeredCourses" class="flex flex-row bg-white border-2 border-rounded border-gray-200 p-2">
+        <div *ngFor="let course of registeredCourses" class="flex flex-row flex-wrap bg-white border-2 border-rounded border-gray-200 p-2">
             <div class="flex flex-col w-1/2">
                 <div class="p-2 mb-4 text-gray-500 flex flex-col">
                     <h3 class="text-gray-900 ">{{course.courseName}}</h3> 
@@ -56,11 +55,11 @@
                     <p class="">appointment: {{util.reshapeTime(course.appointment)}} </p> 
                 </div> 
             </div>
-           <div class="flex flex-row space-x-4  w-1/4 m-auto">
-            <button (click)="dash.loadComponent('editRegistration',{RegisterationId:course.id})" class="w-1/4 px-4 py-2 bg-blue-400 hover:bg-blue-600 text-white rounded">
+           <div class="flex flex-row space-x-4 m-auto">
+            <button (click)="navigate('editRegistration', course.id)" class=" px-4 py-2 bg-blue-400 hover:bg-blue-600 text-white rounded">
                 edit 
             </button>
-            <button (click)="removeRegisteration( course.id )" class="w-1/4 px-4 py-2 bg-red-400 hover:bg-red-600 text-white rounded">
+            <button (click)="removeRegisteration( course.id )" class=" px-4 py-2 bg-red-400 hover:bg-red-600 text-white rounded">
                 remove  
             </button> 
            </div>

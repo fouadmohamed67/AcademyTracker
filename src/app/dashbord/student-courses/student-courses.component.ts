@@ -3,6 +3,7 @@ import { DashbordComponent } from '../dashbord.component';
 import { HttpClient } from '@angular/common/http';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UtilService } from 'src/app/services/guard/utils/util.service';
+import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-student-courses',
   templateUrl: './student-courses.component.html',
@@ -17,24 +18,26 @@ export class StudentCoursesComponent {
   registeredCourses:any;
   message:any;
   typeMessage:any;
-  constructor(public dash:DashbordComponent,private http:HttpClient,public util:UtilService){
+  studentId:number|undefined
+  constructor(private route:ActivatedRoute,private http:HttpClient,public util:UtilService,private router:Router){
     this.form = new FormGroup({
       day: new FormControl('',[Validators.required ]),
       courseId: new FormControl('',[Validators.required ]), 
       appointment: new FormControl('',[Validators.required ]), 
     });
+    this.route.params.subscribe(param=>{
+      this.studentId=param['studentId'] 
+    }) 
   }
  async ngOnInit(){
     this.getStudent()  
   }
   getStudent()
-  { 
-    const studentId=this.dash.data.studentId;
-    this.http.get<any>('http://localhost:3000/student/'+studentId,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
+  {  
+    this.http.get<any>('https://academytracker.onrender.com/student/'+this.studentId,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
     .subscribe({
       next: res=>{
-          this.student=res.student; 
-         
+          this.student=res.student;  
       },
       complete:()=>{
          this.getAvailableCourses();
@@ -52,7 +55,7 @@ export class StudentCoursesComponent {
       testData.append('courseId',form.value.courseId);
       testData.append('day',form.value.day);
       testData.append('appointment',form.value.appointment);
-      this.http.post<any>('http://localhost:3000/registerAtCourse',testData,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
+      this.http.post<any>('https://academytracker.onrender.com/registerAtCourse',testData,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
       .subscribe(res=>{
         form.reset();
         this.submited=false
@@ -62,19 +65,19 @@ export class StudentCoursesComponent {
     }  
   }
   getAvailableCourses(){  
-    this.http.get<any>('http://localhost:3000/CoursesOfLevel/'+this.student.levelId,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
+    this.http.get<any>('https://academytracker.onrender.com/CoursesOfLevel/'+this.student.levelId,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
     .subscribe(res=>{  
       this.availableCourses=res.courses;
     })
   }  
   getRegisteredCourses(){
-    this.http.get<any>('http://localhost:3000/studentCourses/'+this.student.studentId,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
+    this.http.get<any>('https://academytracker.onrender.com/studentCourses/'+this.student.studentId,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
     .subscribe(res=>{  
       this.registeredCourses=res.studentCourses 
     })
   }
   removeRegisteration(id:any){
-    this.http.delete('http://localhost:3000/removeRegistration?id='+id,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}}).subscribe({
+    this.http.delete('https://academytracker.onrender.com/removeRegistration?id='+id,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}}).subscribe({
       next:res=>{
          
       }
@@ -98,6 +101,9 @@ export class StudentCoursesComponent {
    } 
   get getFormControl() {
     return this.form.controls;
+  }
+  navigate(route:string, courseId:number){
+    this.router.navigate([route+'/'+courseId])
   }
   
 }

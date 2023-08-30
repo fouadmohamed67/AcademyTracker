@@ -1,92 +1,7 @@
-<!--
-
-
-   <div class="flex flex-row">
+ <div class="flex flex-row">
      
- 
-    <app-categories class="w-1/4 z-0"></app-categories> 
-    <div class="p-4 w-3/4">
-        <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
-           <div class="grid grid-cols-3 gap-4 mb-4">
-              <div class="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
-                 <p class="text-2xl text-gray-400 dark:text-gray-500">
-                    <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                       <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-                    </svg>
-                 </p>
-              </div>
-              <div class="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
-                 <p class="text-2xl text-gray-400 dark:text-gray-500">
-                    <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                       <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-                    </svg>
-                 </p>
-              </div>
-              <div class="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
-                 <p class="text-2xl text-gray-400 dark:text-gray-500">
-                    <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                       <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-                    </svg>
-                 </p>
-              </div>
-           </div>
-           <div class="flex items-center justify-center h-48 mb-4 rounded bg-gray-50 dark:bg-gray-800">
-              <p class="text-2xl text-gray-400 dark:text-gray-500">
-                 <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-                 </svg>
-              </p>
-           </div>
-           <div class="grid grid-cols-2 gap-4 mb-4">
-              <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                 <p class="text-2xl text-gray-400 dark:text-gray-500">
-                    <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                       <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-                    </svg>
-                 </p>
-              </div>
-              <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                 <p class="text-2xl text-gray-400 dark:text-gray-500">
-                    <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                       <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-                    </svg>
-                 </p>
-              </div>
-              <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                 <p class="text-2xl text-gray-400 dark:text-gray-500">
-                    <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                       <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-                    </svg>
-                 </p>
-              </div>
-              <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                 <p class="text-2xl text-gray-400 dark:text-gray-500">
-                    <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                       <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-                    </svg>
-                 </p>
-              </div>
-            
-        </div>
-     </div>
- 
-</div>
--->
-<div class="flex flex-row">
-   <app-categories class="w-1/4 z-0"></app-categories> 
-   <div class="p-4 w-3/4 ml-3 sm:w-full sm:m-0">
-      <app-lectures *ngIf="components.lectures" ></app-lectures>
-      <app-lessons *ngIf="components.lessons"></app-lessons>
-      <app-levels *ngIf="components.levels"></app-levels>
-      <app-students *ngIf="components.students"></app-students>
-      <app-courses *ngIf="components.courses"></app-courses>
-      <app-manage-student *ngIf="components.manageStudent"></app-manage-student>
-      <app-student-courses *ngIf="components.studentCourses"></app-student-courses>
-      <app-edit-registration  *ngIf="components.editRegistration"></app-edit-registration>
-      <div *ngIf="components.dash">
-          
-         <div >
-            <div class="grid grid-cols-1 sm:grid-cols-2  gap-4  mb-6   w-full text-start">
+   <div class="p-6 w-full">   
+            <div class="grid grid-cols-1 sm:grid-cols-2  gap-4  mb-6 w-full text-start">
                <div class="item  bg-gray-100 border-solid border-2 border-sky-200 rounded p-4">
                   <h1>you have <span class="font-bold" *ngIf="countTotalStudentAcademy">{{countTotalStudentAcademy}}</span> students in your academy </h1> 
                </div>
@@ -107,8 +22,7 @@
                           </th>
                           <th scope="col" class="px-6 py-3" colspan="9"> 
                            students 
-                          </th>
-                          
+                          </th> 
                       </tr>
                   </thead>
                   <tbody>
@@ -179,9 +93,7 @@
                <p>{{appointments[5].firstName}}</p>
                <p>{{appointments[6].firstName}}</p>
 
-            </div>
-        </div>   
-      </div>
+            </div> 
    </div>
 </div>
  

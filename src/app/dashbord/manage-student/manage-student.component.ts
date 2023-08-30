@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { DashbordComponent } from '../dashbord.component';
 import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-manage-student',
   templateUrl: './manage-student.component.html',
@@ -9,23 +10,26 @@ import { HttpClient } from '@angular/common/http';
 export class ManageStudentComponent {
   student:any;
   courses:any;
-  constructor(private dash:DashbordComponent,private http:HttpClient){
-    
+  studentId:number|undefined;
+  constructor(private route:ActivatedRoute,private http:HttpClient){
+    this.route.params.subscribe(param=>{
+      this.studentId=param['studentId'] 
+    }) 
   }
   ngOnInit(){
     this.getStudent()
   }
   getStudent()
   {
-    const studentId=this.dash.data.studentId;
-    this.http.get<any>('http://localhost:3000/student/'+studentId,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
+    const studentId=this.studentId;
+    this.http.get<any>('https://academytracker.onrender.com/student/'+studentId,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
     .subscribe(res=>{  
       console.log(res.student)
        this.student=res.student;
     })
   }
   getStudentCourse(){
-    const studentId=this.dash.data.studentId;
+    const studentId=this.studentId;
     
   }
 }

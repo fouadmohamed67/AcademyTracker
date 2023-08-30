@@ -35,7 +35,7 @@ export class SignUpComponent {
       testData.append('phoneNumber',form.value.phoneNumber);
       testData.append('email',form.value.email);
       testData.append('password',form.value.password);
-      this.http.put<any>('http://localhost:3000/auth/signUp',testData)
+      this.http.put<any>('https://academytracker.onrender.com/auth/signUp',testData)
       .subscribe({
         next: res=>{
           

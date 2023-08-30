@@ -2,8 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { DashbordComponent } from '../dashbord.component';
-
+ 
 @Component({
   selector: 'app-students',
   templateUrl: './students.component.html',
@@ -18,7 +17,7 @@ export class StudentsComponent {
   message:any;
   typeMessage:any;
   students:any;
-  constructor(private http:HttpClient,public dash:DashbordComponent){
+  constructor(private http:HttpClient,private router:Router){
     this.form = new FormGroup({
       firstName: new FormControl('',[Validators.required,Validators.minLength(3)]), 
       lastName: new FormControl('',[Validators.required,Validators.minLength(3)]), 
@@ -38,13 +37,13 @@ export class StudentsComponent {
     const teacherId=localStorage.getItem('teacherId') 
     if(isNaN(levelId))
     {
-      this.http.get<any>('http://localhost:3000/studentOfTeacher?teacherId='+teacherId,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
+      this.http.get<any>('https://academytracker.onrender.com/studentOfTeacher?teacherId='+teacherId,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
     .subscribe(res=>{    
        this.students=res.students; 
     }) 
     return
     } 
-    this.http.get<any>('http://localhost:3000/studentOfTeacher?teacherId='+teacherId+'&level.id='+levelId,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
+    this.http.get<any>('https://academytracker.onrender.com/studentOfTeacher?teacherId='+teacherId+'&level.id='+levelId,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
     .subscribe(res=>{    
        this.students=res.students; 
 
@@ -64,7 +63,7 @@ export class StudentsComponent {
         'levelId':form.value.levelId,
         'teacherId':localStorage.getItem('teacherId')
       };  
-      this.http.post<any>('http://localhost:3000/student',testData,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
+      this.http.post<any>('https://academytracker.onrender.com/student',testData,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
       .subscribe({
        next:(res)=>{ 
        
@@ -93,7 +92,7 @@ export class StudentsComponent {
   }
  
  async getLevels(){
-    this.http.get<any>('http://localhost:3000/level',{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
+    this.http.get<any>('https://academytracker.onrender.com/level',{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
     .subscribe( res =>{   
       this.levels=res.levels; 
     }) 
@@ -101,7 +100,7 @@ export class StudentsComponent {
   getStudents(){
     const teacherId=localStorage.getItem('teacherId')
      
-    this.http.get<any>('http://localhost:3000/studentOfTeacher?teacherId='+teacherId,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
+    this.http.get<any>('https://academytracker.onrender.com/studentOfTeacher?teacherId='+teacherId,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
     .subscribe(res=>{   
        this.students=res.students;  
        
@@ -113,7 +112,9 @@ export class StudentsComponent {
 
   get getFormControl() {
     return this.form.controls;
+  } 
+  navigate(route:string,id:number){
+    this.router.navigate([route+'/'+id])
   }
-  
 
 }

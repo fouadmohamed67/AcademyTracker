@@ -11,8 +11,7 @@ import { HeaderComponent } from './Header/header/header.component';
 import { RouterModule } from '@angular/router';
 import { LoginComponent } from './authentication/login/login.component';
 import { SignUpComponent } from './authentication/sign-up/sign-up.component';
-import { CategoriesComponent } from './dashbord/categories/categories.component';
-import { DashbordComponent } from './dashbord/dashbord.component';
+ import { DashbordComponent } from './dashbord/dashbord.component';
 
 import { AuthGuardGuard } from './services/guard/auth-guard.guard';
 import { StudentsComponent } from './dashbord/students/students.component';
@@ -29,8 +28,7 @@ import { StudentsChartComponent } from './dashbord/students-chart/students-chart
     AppComponent,
     HeaderComponent,
     LoginComponent,
-    SignUpComponent,
-    CategoriesComponent,
+    SignUpComponent, 
     DashbordComponent,
     StudentsComponent,
     LecturesComponent,
@@ -46,7 +44,7 @@ import { StudentsChartComponent } from './dashbord/students-chart/students-chart
     HeaderComponent 
   ],
   imports: [
-     CanvasJSAngularChartsModule,
+    CanvasJSAngularChartsModule,
     HttpClientModule,
     BrowserModule,
     FormsModule,
@@ -69,7 +67,43 @@ import { StudentsChartComponent } from './dashbord/students-chart/students-chart
       },
       {
         path:'student',
-        component:StudentsComponent
+        component:StudentsComponent,
+        canActivate:[AuthGuardGuard]
+      },
+      {
+        path:'levels',
+        component:LevelsComponent,
+        canActivate:[AuthGuardGuard]
+      },
+      {
+        path:'lessons',
+        component:LessonsComponent,
+        canActivate:[AuthGuardGuard]
+      },
+      {
+        path:'courses',
+        component:CoursesComponent,
+        canActivate:[AuthGuardGuard]
+      },
+      {
+        path:'lectures/:courseId',
+        component:LecturesComponent,
+        canActivate:[AuthGuardGuard]
+      },
+      {
+        path:'studentCourses/:studentId',
+        component:StudentCoursesComponent,
+        canActivate:[AuthGuardGuard]
+      },
+      {
+        path:'editRegistration/:courseId',
+        component:EditRegistrationComponent,
+        canActivate:[AuthGuardGuard]
+      },
+      {
+        path:'manageStudent/studentId',
+        component:ManageStudentComponent,
+        canActivate:[AuthGuardGuard]
       }
       
     ])

@@ -1,7 +1,7 @@
 <nav class="bg-white border-gray-200 px-2 sm:px-4 py-2.5   dark:bg-gray-800">
   <div class="container flex flex-wrap items-center justify-between mx-auto">
     <div  class="flex items-center">
-         <span *ngIf="teacher" class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">{{teacher?.firstName}}</span>
+         <span (click)="navigate('')" *ngIf="teacher" class="cursor-pointer self-center text-xl font-semibold whitespace-nowrap dark:text-white">{{teacher?.firstName}}</span>
     </div>
     <button  onclick="myFunction()" type="button" class="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-default" aria-expanded="false">
       <span class="sr-only">Open main menu</span>
@@ -9,6 +9,18 @@
     </button>
     <div class=" hidden w-full md:block md:w-auto" id="navbar-default">
       <ul class="flex flex-col p-4 mt-4 border  rounded-lg   md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 border-gray-700">
+        <li >
+          <a (click)="navigate('levels')" class="text-opacity-50 hover:text-opacity-100 cursor-pointer block py-2 pl-3 pr-4 text-white rounded hover:bg-gray-400  md:hover:bg-gray-800  md:border-0   md:p-0 ">levels</a>
+        </li> 
+        <li >
+          <a (click)="navigate('student')" class="text-opacity-50 hover:text-opacity-100 cursor-pointer block py-2 pl-3 pr-4 text-white rounded hover:bg-gray-400  md:hover:bg-gray-800  md:border-0   md:p-0 ">student</a>
+        </li> 
+        <li >
+          <a (click)="navigate('lessons')" class="text-opacity-50 hover:text-opacity-100 cursor-pointer block py-2 pl-3 pr-4 text-white rounded hover:bg-gray-400  md:hover:bg-gray-800  md:border-0   md:p-0 ">lessons</a>
+        </li> 
+        <li >
+          <a (click)="navigate('courses')" class="text-opacity-50 hover:text-opacity-100 cursor-pointer block py-2 pl-3 pr-4 text-white rounded hover:bg-gray-400  md:hover:bg-gray-800  md:border-0   md:p-0 ">courses</a>
+        </li> 
         <li >
           <a (click)="logOut()" class="text-opacity-50 hover:text-opacity-100 cursor-pointer block py-2 pl-3 pr-4 text-white rounded hover:bg-gray-400  md:hover:bg-gray-800  md:border-0   md:p-0 ">logout</a>
         </li> 

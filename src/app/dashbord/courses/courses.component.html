@@ -1,6 +1,6 @@
 <!--form add-->
 <div id="hiddenForm" [ngClass]="hidden ? 'hidden' : '' " class="  w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] ">
-      <div class=" w-full max-w-md  ">
+      <div class="w-full md:w-1/2 m-auto  ">
           <!-- Modal content -->
           <div (click)="toggleClass()" class="font-bold cursor-pointer" >x</div>
           <div class=" bg-white rounded-lg shadow  "> 
@@ -27,7 +27,7 @@
       </div>
 </div>
 <!--data-->
-<div [ngClass]="!hidden ? 'hidden' : ''" > 
+<div [ngClass]="!hidden ? 'hidden' : ''"  class="w-full m-auto p-10"> 
     <button (click)="toggleClass()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
         add new course
     </button>
@@ -35,18 +35,17 @@
         <strong class="font-bold">{{message}}</strong> 
       </div> 
     <div *ngIf="courses" class=""> 
-        <div *ngFor="let course of courses" class="my-5 md:w-2/4 m-1 bg-white border border-gray-200 rounded-lg shadow   "> 
+        <div *ngFor="let course of courses" class="my-5  m-1 bg-white border border-gray-200 rounded-lg shadow   "> 
             <div class="p-5 flex flex-row justify-between">
                 <div class="text-2xl	">
                     {{course.courseName}}
                 </div> 
-                <div class="  ">
+                <div class="flex sm:flex-row flex-col flex-wrap ">
                     <span class=" inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mx-2 mb-2">{{course.levelName}}</span>
-                    <span (click)="dash.loadComponent('lectures',{courseId:course.id})" class="cursor-pointer inline-block bg-gray-700 rounded-full px-3 py-1 text-sm font-semibold text-white  mx-2 mb-2">manage lectures</span>
+                    <span  (click)="navigate('lectures',course.id)" class="cursor-pointer inline-block bg-gray-700 rounded-full px-3 py-1 text-sm font-semibold text-white  mx-2 mb-2">manage lectures</span>
                     <button (click)="deleteCourse( course.id )" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
                         delete
-                    </button>
-                     
+                    </button> 
                 </div> 
                 
             </div>

@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { saveAs } from 'file-saver';
 import { map } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-lectures',
@@ -19,10 +20,16 @@ export class LecturesComponent {
   message:any;
   typeMessage:any;
   course:any;
-  constructor(private dash:DashbordComponent,private http:HttpClient){
+  courseId:number | undefined;
+  constructor(private route:ActivatedRoute,private http:HttpClient){
     this.form = new FormGroup({
       lectureName: new FormControl('',[Validators.required,Validators.minLength(3)]) 
+      
     }); 
+    this.route.params.subscribe(param=>{
+      this.courseId=param['courseId'] 
+    }) 
+
     this.getCourse();
     this.getLecturesOfCourse();
   }
@@ -31,11 +38,12 @@ export class LecturesComponent {
     this.submited=true 
     if(this.form.valid && this.file)
     { 
-      let testData = new FormData();
-      testData.append('lectureName', form.value.lectureName );
-      testData.append('courseId',this.dash.data.courseId );
-      testData.append('lecture',this.file); 
-      this.http.post<any>('http://localhost:3000/lecture',testData,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}}).subscribe(res=>{
+      let testData = {
+        'lectureName': form.value.lectureName,
+        'courseId':this.courseId,
+        'lecture':this.file
+       }; 
+      this.http.post<any>('https://academytracker.onrender.com/lecture',testData,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}}).subscribe(res=>{
         form.reset();
         this.submited=false
         this.toggleClass(); 
@@ -49,22 +57,22 @@ export class LecturesComponent {
   }
 
   getLecturesOfCourse(){
-    const courseId=this.dash.data.courseId;
-    this.http.get<any>('http://localhost:3000/getAllLecturesCourse/'+courseId,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
+    const courseId=this.courseId;
+    this.http.get<any>('https://academytracker.onrender.com/getAllLecturesCourse/'+courseId,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
     .subscribe(res=>{ 
       this.lectures=res.lectures 
     }) 
   }
 
   getCourse(){
-    const courseId=this.dash.data.courseId;
-    this.http.get<any>('http://localhost:3000/course/'+courseId,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}}).subscribe(res=>{
+    const courseId=this.courseId;
+    this.http.get<any>('https://academytracker.onrender.com/course/'+courseId,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}}).subscribe(res=>{
       this.course=res.course
     })
   }
 
   downloadPDF(id:number){
-     this.http.get<Blob>('http://localhost:3000/getFileLecture/'+id, {headers:{'Authorization':'Bearer '+localStorage.getItem('token')},responseType:'blob' as 'json'}) .subscribe(x=>{
+     this.http.get<Blob>('https://academytracker.onrender.com/getFileLecture/'+id, {headers:{'Authorization':'Bearer '+localStorage.getItem('token')},responseType:'blob' as 'json'}) .subscribe(x=>{
       let file = new Blob([x], { type: 'application/pdf' });            
       var fileURL = URL.createObjectURL(file);
       window.open(fileURL);
@@ -72,7 +80,7 @@ export class LecturesComponent {
   }
 
   deleteLecture(id:any){
-    this.http.delete('http://localhost:3000/lecture?id='+id,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}}).subscribe({
+    this.http.delete('https://academytracker.onrender.com/lecture?id='+id,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}}).subscribe({
         next:res=>{
           
         }

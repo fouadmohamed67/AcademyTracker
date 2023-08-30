@@ -26,10 +26,9 @@ export class LoginComponent {
       let testData=new FormData(); 
       testData.append('email',form.value.email);
       testData.append('password',form.value.password);
-      this.http.post<any>('http://localhost:3000/auth/login',testData)
+      this.http.post<any>('https://academytracker.onrender.com/auth/login',testData)
       .subscribe({  
-        next: res=>{  
-          console.log(res)
+        next: res=>{   
             localStorage.setItem('teacherId',res.teacherId) 
             localStorage.setItem("token",res.token)
            
