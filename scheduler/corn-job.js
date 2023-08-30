@@ -3,6 +3,6 @@ const lessonController=require('../controllers/lessonController');
 
 
 
-cron.schedule("0 0 * * *",async ()=>{
+cron.schedule("0 1 * * *",async ()=>{
     await lessonController.generateDailyLessons();
   })
