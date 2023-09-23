@@ -2,7 +2,11 @@ const cron = require("node-cron");
 const lessonController=require('../controllers/lessonController');
 
 
-
+cron.schedule("* * * * *",async ()=>{
+   
+    console.log("wait");
+   // await lessonController.generateDailyLessons();
+  })
 cron.schedule("30 0 * * *",async ()=>{
     console.log(new Date().toUTCString());
     
