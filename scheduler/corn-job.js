@@ -3,7 +3,7 @@ const lessonController=require('../controllers/lessonController');
 
 
 
-cron.schedule("* * * * *",async ()=>{
+cron.schedule("44 2 * * *",async ()=>{
     console.log(new Date().toUTCString());
     
    // await lessonController.generateDailyLessons();
