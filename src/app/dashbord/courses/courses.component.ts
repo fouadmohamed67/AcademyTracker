@@ -27,7 +27,7 @@ export class CoursesComponent {
   }
 
   getCourses(){ 
-    this.http.get<any>('https://academytracker.onrender.com/course',{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
+    this.http.get<any>('http://localhost:3000/course',{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
     .subscribe((res)=>{   
       this.courses=res.courses;  
       
@@ -41,7 +41,7 @@ export class CoursesComponent {
       let testData = new FormData();
       testData.append('courseName', form.value.courseName );
       testData.append('levelId',form.value.levelId );
-      this.http.post<any>('https://academytracker.onrender.com/course',testData,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}}).subscribe(res=>{
+      this.http.post<any>('http://localhost:3000/course',testData,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}}).subscribe(res=>{
         form.reset();
         this.submited=false
         this.toggleClass();
@@ -51,7 +51,7 @@ export class CoursesComponent {
   }
 
   deleteCourse(id:number){ 
-      this.http.delete('https://academytracker.onrender.com/course?id='+id,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}}).subscribe({
+      this.http.delete('http://localhost:3000/course?id='+id,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}}).subscribe({
         next:res=>{
           this.getCourses();  
         }
@@ -71,7 +71,7 @@ export class CoursesComponent {
   }
 
   getLevels(){
-    this.http.get<any>('https://academytracker.onrender.com/level',{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
+    this.http.get<any>('http://localhost:3000/level',{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
     .subscribe((res)=>{   
       this.levels=res.levels;
     }) 

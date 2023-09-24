@@ -22,7 +22,7 @@ export class ManageStudentComponent {
   getStudent()
   {
     const studentId=this.studentId;
-    this.http.get<any>('https://academytracker.onrender.com/student/'+studentId,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
+    this.http.get<any>('http://localhost:3000/student/'+studentId,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
     .subscribe(res=>{  
       console.log(res.student)
        this.student=res.student;

@@ -34,7 +34,7 @@ export class StudentCoursesComponent {
   }
   getStudent()
   {  
-    this.http.get<any>('https://academytracker.onrender.com/student/'+this.studentId,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
+    this.http.get<any>('http://localhost:3000/student/'+this.studentId,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
     .subscribe({
       next: res=>{
           this.student=res.student;  
@@ -55,7 +55,7 @@ export class StudentCoursesComponent {
       testData.append('courseId',form.value.courseId);
       testData.append('day',form.value.day);
       testData.append('appointment',form.value.appointment);
-      this.http.post<any>('https://academytracker.onrender.com/registerAtCourse',testData,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
+      this.http.post<any>('http://localhost:3000/registerAtCourse',testData,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
       .subscribe(res=>{
         form.reset();
         this.submited=false
@@ -65,19 +65,19 @@ export class StudentCoursesComponent {
     }  
   }
   getAvailableCourses(){  
-    this.http.get<any>('https://academytracker.onrender.com/CoursesOfLevel/'+this.student.levelId,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
+    this.http.get<any>('http://localhost:3000/CoursesOfLevel/'+this.student.levelId,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
     .subscribe(res=>{  
       this.availableCourses=res.courses;
     })
   }  
   getRegisteredCourses(){
-    this.http.get<any>('https://academytracker.onrender.com/studentCourses/'+this.student.studentId,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
+    this.http.get<any>('http://localhost:3000/studentCourses/'+this.student.studentId,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
     .subscribe(res=>{  
       this.registeredCourses=res.studentCourses 
     })
   }
   removeRegisteration(id:any){
-    this.http.delete('https://academytracker.onrender.com/removeRegistration?id='+id,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}}).subscribe({
+    this.http.delete('http://localhost:3000/removeRegistration?id='+id,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}}).subscribe({
       next:res=>{
          
       }

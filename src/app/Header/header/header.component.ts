@@ -13,7 +13,7 @@ export class HeaderComponent {
       this.getUserInfo();
   } 
  async getUserInfo(){
-    this.http.get<any>('https://academytracker.onrender.com/teacher',{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
+    this.http.get<any>('http://localhost:3000/teacher',{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
     .subscribe(res=>{  
        this.teacher=res.clearedTeacher 
        

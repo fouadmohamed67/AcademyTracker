@@ -32,7 +32,7 @@ export class EditRegistrationComponent {
     
   }
   getRegisteration(){ 
-    this.http.get<any>('https://academytracker.onrender.com/getRegisteration/'+this.courseId,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
+    this.http.get<any>('http://localhost:3000/getRegisteration/'+this.courseId,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
     .subscribe(res=>{
      this.registeration=res.registeration  
     })
@@ -45,7 +45,7 @@ export class EditRegistrationComponent {
       const day=this.util.getDayIndex(form.value.day)
       testData.append('day',day.toString());
       testData.append('appointment',form.value.appointment); 
-      this.http.post<any>('https://academytracker.onrender.com/updatRegistration',testData,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
+      this.http.post<any>('http://localhost:3000/updatRegistration',testData,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
       .subscribe(res=>{
         form.reset();
         this.submited=false   

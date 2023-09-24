@@ -34,7 +34,7 @@ export class LevelsComponent {
     { 
       let testData = new FormData();
       testData.append('levelName', form.value.levelName ); 
-      this.http.post<any>('https://academytracker.onrender.com/level',testData,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
+      this.http.post<any>('http://localhost:3000/level',testData,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
       .subscribe({
        next:(res)=>{ 
         this.getCoursesPerLevel();
@@ -66,7 +66,7 @@ export class LevelsComponent {
 
   deletelevel(id:number){
      
-      this.http.delete('https://academytracker.onrender.com/level?id='+id,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}}).subscribe({
+      this.http.delete('http://localhost:3000/level?id='+id,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}}).subscribe({
         next:res=>{
           this.getLevels(); 
           this.getCoursesPerLevel();
@@ -94,7 +94,7 @@ export class LevelsComponent {
   }
 
  async getLevels(){
-    this.http.get<any>('https://academytracker.onrender.com/level',{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
+    this.http.get<any>('http://localhost:3000/level',{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
     .subscribe(   res =>{   
       this.levels=res.levels;
       
@@ -102,14 +102,14 @@ export class LevelsComponent {
   }
 
   getStudentPerLevel(){
-    this.http.get<any>('https://academytracker.onrender.com/studentPerLevel',{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
+    this.http.get<any>('http://localhost:3000/studentPerLevel',{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
     .subscribe(res=>{   
       this.countStudent=res.countStudent;  
     }) 
   }
 
   getCoursesPerLevel(){
-    this.http.get<any>('https://academytracker.onrender.com/coursesPerLevel',{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
+    this.http.get<any>('http://localhost:3000/coursesPerLevel',{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
     .subscribe(res=>{   
       this.countCourses=res.countCourses;  
     }) 
