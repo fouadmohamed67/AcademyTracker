@@ -53,6 +53,7 @@ const getAllLessonsOfDate=async (req,res)=>{
 const generateDailyLessons=async()=>{
    try {
     const appointmentsOfToday=await Course.appointmentsOfToday();
+    console.log(appointmentsOfToday)
     const date = new Date(); 
     let day = date.getDate();
     let month = date.getMonth() + 1;
