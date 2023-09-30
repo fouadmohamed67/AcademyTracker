@@ -1,4 +1,4 @@
-<div id="hiddenForm"   class="  w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+<div id="hiddenForm"   class="  w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0  mt-10">
     <div class="m-auto  w-full max-w-md max-h-full">
         <div  *ngIf="errorMessage && submited"  class="bg-red-100 w-full mx-auto mt-2  border px-4 py-3 rounded relative"  >
             <strong class="font-bold">{{errorMessage}}</strong> 
@@ -8,34 +8,34 @@
             <div class="bg-red-100 border border-red-400 text-red-700 my-1 px-4 py-1 rounded " *ngIf="!validResponse && submited" >validation faild</div>
 
             <div class="px-6 py-6 lg:px-8"> 
-                <h3 class="mb-4 text-xl font-medium text-gray-900 ">signUp</h3>
+                <h3 class="mb-4 text-3xl font-bold text-gray-900 text-center ">Sign up</h3>
                 <form [formGroup]="form" (ngSubmit)="createUser(form)" class="space-y-6">
                     <div>
-                        <label for="firstName" class="block mb-2 text-sm font-medium text-gray-900  ">firstName </label>
-                        <input formControlName="firstName" type="text" name="firstName" id="firstName" class="bg-gray-50 border   text-gray-900 text-sm rounded-lg block w-full p-2.5"   required>
+                        <label for="firstName" class="block mb-2  text-xl text-gray-900  ">First name </label>
+                        <input formControlName="firstName" type="text" name="firstName" id="firstName" placeholder="First name" class="bg-gray-50 border   text-gray-900 text-sm rounded-lg block w-full p-2.5"   required>
                         <div class="bg-red-100 border border-red-400 text-red-700 my-1 px-4 py-1 rounded " *ngIf="getFormControl['firstName'].errors && submited" >min lenght is 3  </div>
                     </div>
                     <div>
-                        <label for="lastName" class="block mb-2 text-sm font-medium text-gray-900  ">lastName </label>
-                        <input formControlName="lastName" type="text" name="lastName" id="lastName" class="bg-gray-50 border   text-gray-900 text-sm rounded-lg block w-full p-2.5"   required>
+                        <label for="lastName" class="block mb-2 text-xl  text-gray-900  ">Last name </label>
+                        <input formControlName="lastName" type="text" name="lastName" id="lastName" placeholder="Last name" class="bg-gray-50 border   text-gray-900 text-sm rounded-lg block w-full p-2.5"   required>
                         <div class="bg-red-100 border border-red-400 text-red-700 my-1 px-4 py-1 rounded " *ngIf="getFormControl['lastName'].errors && submited" >min lenght is 3  </div>
                     </div>
                     <div>
-                        <label for="phoneNumber" class="block mb-2 text-sm font-medium text-gray-900">phoneNumber </label>
-                        <input formControlName="phoneNumber" type="tel" pattern="[0-9]{11}" name="phoneNumber" id="phoneNumber" class="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5" required>
+                        <label for="phoneNumber" class="block mb-2 text-xl  text-gray-900">Phone number </label>
+                        <input formControlName="phoneNumber" type="tel" pattern="[0-9]{11}" name="phoneNumber" id="phoneNumber" placeholder="Phone number" class="bg-gray-50 border text-gray-900 text-sm rounded-lg block w-full p-2.5" required>
                         <div class="bg-red-100 border border-red-400 text-red-700 my-1 px-4 py-1 rounded " *ngIf="getFormControl['phoneNumber'].errors && submited" >11 number is required </div>
                     </div>
                     <div>
-                        <label for="email" class="block mb-2 text-sm font-medium text-gray-900  ">email </label>
-                        <input formControlName="email" type="text"  name="email" id="email" class="bg-gray-50 border   text-gray-900 text-sm rounded-lg block w-full p-2.5"   required>
+                        <label for="email" class="block mb-2  text-xl text-gray-900  ">Email </label>
+                        <input formControlName="email" type="text"  name="email" id="email" placeholder="Email" class="bg-gray-50 border   text-gray-900 text-sm rounded-lg block w-full p-2.5"   required>
                         <div class="bg-red-100 border border-red-400 text-red-700 my-1 px-4 py-1 rounded " *ngIf="getFormControl['email'].errors && submited" >enter valid email</div>
                     </div>
                     <div>
-                        <label for="password" class="block mb-2 text-sm font-medium text-gray-900  ">password</label>
-                        <input formControlName="password" type="password" name="password" id="password"   class="bg-gray-50 border  text-gray-900 text-sm rounded-lg block w-full p-2.5" required>
+                        <label for="password" class="block mb-2 text-xl text-gray-900  ">Password</label>
+                        <input formControlName="password" type="password" name="password" id="password" placeholder="Password"  class="bg-gray-50 border  text-gray-900 text-sm rounded-lg block w-full p-2.5" required>
                         <div class="bg-red-100 border border-red-400 text-red-700 my-1 px-4 py-1 rounded " *ngIf="getFormControl['password'].errors && submited" >min length is 6</div>
                     </div>  
-                    <button type="submit" class="  text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">signUp</button>
+                    <button type="submit" class="  text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-lg rounded-lg text-sm px-5 py-2.5 text-center">Sign up</button>
                 </form>
                 <div class="mt-2">
                     <a href="\login" >login ?</a>

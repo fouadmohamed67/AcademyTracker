@@ -18,7 +18,7 @@ export class AuthGuardGuard implements CanActivate {
   }
   
   getBoolean(){
-    const res= this.http.get<any>('http://localhost:3000/auth/ChekToken',{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
+    const res= this.http.get<any>('https://academytracker.onrender.com/auth/ChekToken',{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
       .subscribe(res=>{
         if(res.status===401)
            { 

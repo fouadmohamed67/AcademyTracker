@@ -8,21 +8,21 @@
       <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
     </button>
     <div class=" hidden w-full md:block md:w-auto" id="navbar-default">
-      <ul class="flex flex-col p-4 mt-4 border  rounded-lg   md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 border-gray-700">
+      <ul class="flex flex-col p-4 mt-4 border  rounded-lg   md:flex-row md:space-x-8 md:mt-0    md:border-0 border-gray-700">
         <li >
-          <a (click)="navigate('levels')" class="text-opacity-50 hover:text-opacity-100 cursor-pointer block py-2 pl-3 pr-4 text-white rounded hover:bg-gray-400  md:hover:bg-gray-800  md:border-0   md:p-0 ">levels</a>
+          <a (click)="navigate('levels')" [ngClass]="router.url == '/levels' ? 'active' : ''" class="  cursor-pointer block py-2 pl-3 pr-4 text-white rounded hover:bg-gray-400  md:hover:bg-gray-800  md:border-0   md:p-0 ">levels</a>
         </li> 
         <li >
-          <a (click)="navigate('student')" class="text-opacity-50 hover:text-opacity-100 cursor-pointer block py-2 pl-3 pr-4 text-white rounded hover:bg-gray-400  md:hover:bg-gray-800  md:border-0   md:p-0 ">student</a>
+          <a (click)="navigate('student')" [ngClass]="router.url == '/student' ? 'active' : ''" class="  cursor-pointer block py-2 pl-3 pr-4 text-white rounded hover:bg-gray-400  md:hover:bg-gray-800  md:border-0   md:p-0 ">student</a>
         </li> 
         <li >
-          <a (click)="navigate('lessons')" class="text-opacity-50 hover:text-opacity-100 cursor-pointer block py-2 pl-3 pr-4 text-white rounded hover:bg-gray-400  md:hover:bg-gray-800  md:border-0   md:p-0 ">lessons</a>
+          <a (click)="navigate('lessons')" [ngClass]="router.url == '/lessons' ? 'active' : ''" class="  cursor-pointer block py-2 pl-3 pr-4 text-white rounded hover:bg-gray-400  md:hover:bg-gray-800  md:border-0   md:p-0 ">lessons</a>
         </li> 
         <li >
-          <a (click)="navigate('courses')" class="text-opacity-50 hover:text-opacity-100 cursor-pointer block py-2 pl-3 pr-4 text-white rounded hover:bg-gray-400  md:hover:bg-gray-800  md:border-0   md:p-0 ">courses</a>
+          <a (click)="navigate('courses')" [ngClass]="router.url == '/courses' ? 'active' : ''" class="  cursor-pointer block py-2 pl-3 pr-4 text-white rounded hover:bg-gray-400  md:hover:bg-gray-800  md:border-0   md:p-0 ">courses</a>
         </li> 
         <li >
-          <a (click)="logOut()" class="text-opacity-50 hover:text-opacity-100 cursor-pointer block py-2 pl-3 pr-4 text-white rounded hover:bg-gray-400  md:hover:bg-gray-800  md:border-0   md:p-0 ">logout</a>
+          <a (click)="logOut()" class="  hover:text-opacity-100 cursor-pointer block py-2 pl-3 pr-4 text-white rounded hover:bg-gray-400  md:hover:bg-gray-800  md:border-0   md:p-0 ">logout</a>
         </li> 
       </ul>
     </div>

@@ -18,7 +18,7 @@ export class StudentsChartComponent {
 	}
   getStudentsPerDay(){
     const teacherId=localStorage.getItem('teacherId')
-    this.http.get<any>('http://localhost:3000/getStudentsPerDay/'+teacherId,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
+    this.http.get<any>('https://academytracker.onrender.com/getStudentsPerDay/'+teacherId,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
     .subscribe((res)=>{   
      const data=res.data 
       for(let i=0;i<res.data.length;i++)

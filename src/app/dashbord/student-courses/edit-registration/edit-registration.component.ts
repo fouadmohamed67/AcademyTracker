@@ -12,6 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class EditRegistrationComponent { 
   registeration:any;
+  selectedDay:number | undefined
   submited!:boolean;
   form:FormGroup; 
   message:any;
@@ -26,26 +27,29 @@ export class EditRegistrationComponent {
       day: new FormControl('',[Validators.required ]), 
       appointment: new FormControl('',[Validators.required ]), 
     });
+   
     this.getRegisteration()
     this.daysKey=Object.keys(this.util.days)
     this.daysValue=Object.values(this.util.days) 
     
   }
   getRegisteration(){ 
-    this.http.get<any>('http://localhost:3000/getRegisteration/'+this.courseId,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
+    this.http.get<any>('https://academytracker.onrender.com/getRegisteration/'+this.courseId,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
     .subscribe(res=>{
-     this.registeration=res.registeration  
+     this.registeration=res.registeration   
+     this.form.controls['day'].setValue(this.registeration.day)
+     this.form.controls['appointment'].setValue(this.registeration.appointment)
     })
   }
   update(form:FormGroup){
-    this.submited=true;
+    this.submited=true;  
+    
     if(this.form.valid){
       let testData = new FormData();
-      testData.append('id',this.registeration.id);
-      const day=this.util.getDayIndex(form.value.day)
-      testData.append('day',day.toString());
-      testData.append('appointment',form.value.appointment); 
-      this.http.post<any>('http://localhost:3000/updatRegistration',testData,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
+      testData.append('id',this.registeration.id); 
+      testData.append('day',form.value.day);
+      testData.append('appointment',form.value.appointment);   
+      this.http.post<any>('https://academytracker.onrender.com/updatRegistration',testData,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
       .subscribe(res=>{
         form.reset();
         this.submited=false   

@@ -1,12 +1,18 @@
 <div class="w-full m-auto p-10">
     
-    <div class="w-1/4"> 
-        <label for="">chose day: </label>
+    <div class="w-1/4 mb-4"> 
+        <h1 class="text-2xl">Choose day: </h1>
         <input (change)="onChange($event)" type="date" class="bg-gray-50 border   text-gray-900 text-sm rounded-lg  w-full p-2.5">           
     </div> 
+    <div *ngIf="!lessons ">
+        <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4 mt-4" role="alert"> 
+            <p> lessons in this day not found</p>
+        </div>
+       
+    </div>
     <div *ngIf="lessons" class=" grid mb-8 border border-gray-200 rounded-lg shadow-sm   md:mb-12 md:grid-cols-1">
         
-        <h1 class="ml-4 mt-4">lessons of : {{util.dateFromDateObject(lessons[0].Date)}}     ({{util.getDay(lessons[0].day)}}) {{lessons[0].day}}</h1>
+        <h1 class="ml-4 mt-4">lessons of : {{util.dateFromDateObject(lessons[0].Date)}}     ({{util.getDay(lessons[0].day)}})  </h1>
         <div *ngFor="let lesson of lessons" class="flex flex-row justify-between p-8 bg-white border-gray-200 rounded-b-lg border-b  ">
             <div class="  text-gray-500  ">
                 <h3 class="text-lg font-semibold text-gray-900 ">{{lesson.firstName}} {{lesson.lastName}}</h3> <span>{{util.reshapeTime(lesson.appointment)}}</span>
