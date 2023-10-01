@@ -83,7 +83,7 @@ const updateStudentCourse=async(req,res)=>{
     try {
         const id=req.body.id;
         const updatedData=req.body 
-        console.log(req.body)
+       
        await  Course.findStudentCourseAndUpdate(id,updatedData);
        res.status(201).send({ message:'new data updated' });
     } catch (error) {

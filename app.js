@@ -8,8 +8,7 @@ require('./scheduler/corn-job')
 
 
 const fileStorage=multer.diskStorage({
-    destination:(req,file,cb)=>{ 
-        
+    destination:(req,file,cb)=>{  
         cb(null,'lectures')
     },filename:(req,file,cb)=>{  
         cb(null,new Date().toISOString().replace(/:/g, '-')+'_'+file.originalname)

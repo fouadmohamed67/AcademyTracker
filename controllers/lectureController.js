@@ -4,24 +4,21 @@ const fs = require('fs');
 const jwt=require('jsonwebtoken')
 
 const createLecture=async(req,res)=>{
-    try { 
-     
+    try {   
         const token=req.get('Authorization').split(' ')[1]; 
         const  decodedToken=jwt.verify(token,'fo2shaDoksha');
         const teacherId=decodedToken.id; 
         const lectureName=req.body.lectureName;
         const pdfURL= req.file.filename;
-        const courseId=req.body.courseId; 
-       
+        const courseId=req.body.courseId;  
         const lecture=await Lecture.createLecture(lectureName,pdfURL,courseId,teacherId);
         const fileStorage=  multer.diskStorage({
             filename:(req,file,cb)=>{   
                cb(null,new Date().toISOString().replace(/:/g, '-')+'_'+req.file.filename)
-           }
+            }
        })
         res.status(201).send({ lecture }); 
-    } catch (error) { 
-       
+    } catch (error) {  
         var filePath = './lectures/'+req.file.filename; 
         fs.unlinkSync(filePath);
         res.status(409).send({ message:error.message }); 
