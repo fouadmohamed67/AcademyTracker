@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { DashbordComponent } from '../../dashbord.component';
-import { HttpClient } from '@angular/common/http';
-import { UtilService } from 'src/app/services/guard/utils/util.service';
+import { UtilService } from 'src/app/services/utils/util.service';
 import { ActivatedRoute, Router } from '@angular/router';
-
+import { HttpApisService } from 'src/app/services/apisService/http-apis.service';
+ 
 @Component({
   selector: 'app-edit-registration',
   templateUrl: './edit-registration.component.html',
@@ -19,7 +18,7 @@ export class EditRegistrationComponent {
   daysValue:any;
   daysKey:any;
   courseId:number|undefined
-  constructor(private http:HttpClient,public util:UtilService,private route:ActivatedRoute,private router:Router){
+  constructor(private http:HttpApisService ,public util:UtilService,private route:ActivatedRoute,private router:Router){
     this.route.params.subscribe(param=>{
       this.courseId=param['courseId'] 
     }) 
@@ -34,9 +33,8 @@ export class EditRegistrationComponent {
     
   }
   getRegisteration(){ 
-    this.http.get<any>('https://academytracker.onrender.com/getRegisteration/'+this.courseId,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
-    .subscribe(res=>{
-     this.registeration=res.registeration   
+    this.http.get('getRegisteration/'+this.courseId).subscribe(res=>{
+     this.registeration=res.registeration    
      this.form.controls['day'].setValue(this.registeration.day)
      this.form.controls['appointment'].setValue(this.registeration.appointment)
     })
@@ -49,7 +47,7 @@ export class EditRegistrationComponent {
       testData.append('id',this.registeration.id); 
       testData.append('day',form.value.day);
       testData.append('appointment',form.value.appointment);   
-      this.http.post<any>('https://academytracker.onrender.com/updatRegistration',testData,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
+      this.http.post('updatRegistration',testData)
       .subscribe(res=>{
         form.reset();
         this.submited=false   

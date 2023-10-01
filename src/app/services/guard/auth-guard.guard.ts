@@ -1,13 +1,13 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
+import { HttpApisService } from '../apisService/http-apis.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuardGuard implements CanActivate {
-  constructor(private http:HttpClient,private router:Router){
+  constructor(private http:HttpApisService,private router:Router){
     this.getBoolean();
    }
   canActivate(
@@ -18,7 +18,7 @@ export class AuthGuardGuard implements CanActivate {
   }
   
   getBoolean(){
-    const res= this.http.get<any>('https://academytracker.onrender.com/auth/ChekToken',{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
+    const res= this.http.get('auth/ChekToken')
       .subscribe(res=>{
         if(res.status===401)
            { 

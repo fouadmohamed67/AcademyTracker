@@ -1,5 +1,5 @@
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { HttpApisService } from 'src/app/services/apisService/http-apis.service';
 
 @Component({
   selector: 'app-students-chart',
@@ -8,17 +8,16 @@ import { Component } from '@angular/core';
 })
 export class StudentsChartComponent {
   chartData=[0,0,0,0,0,0,0];
-   
-  constructor(private http:HttpClient ){
+  chartOptions = {}
+
+  constructor(private http:HttpApisService ){
     this.getStudentsPerDay()
   }
   
-   chartOptions = {
-	  
-	}
   getStudentsPerDay(){
+
     const teacherId=localStorage.getItem('teacherId')
-    this.http.get<any>('https://academytracker.onrender.com/getStudentsPerDay/'+teacherId,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
+    this.http.get('getStudentsPerDay/'+teacherId)
     .subscribe((res)=>{   
      const data=res.data 
       for(let i=0;i<res.data.length;i++)

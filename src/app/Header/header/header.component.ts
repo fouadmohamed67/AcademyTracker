@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { HttpApisService } from 'src/app/services/apisService/http-apis.service';
 
 @Component({
   selector: 'app-header',
@@ -8,27 +9,29 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
+
   teacher:any;
-  constructor( public router:Router,private http:HttpClient){
+
+  constructor( public router:Router,private http:HttpApisService){
       this.getUserInfo();
   } 
- async getUserInfo(){
-    this.http.get<any>('https://academytracker.onrender.com/teacher',{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
+
+  getUserInfo(){
+    this.http.get('teacher')
     .subscribe(res=>{  
        this.teacher=res.clearedTeacher 
-       
     }) 
-  } 
-   ngOnInit(){
-  
-  } 
-  
+  }
+
   logOut(){
+
     localStorage.removeItem('token');
     localStorage.removeItem('teacherId')
     this.router.navigate(['login']);
   }
+
   navigate(route:string){
     this.router.navigate([route])
   }
+  
 }

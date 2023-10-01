@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { UtilService } from 'src/app/services/guard/utils/util.service';
+import { HttpApisService } from 'src/app/services/apisService/http-apis.service';
+import { UtilService } from 'src/app/services/utils/util.service';
 @Component({
   selector: 'app-lessons',
   templateUrl: './lessons.component.html',
@@ -9,7 +9,7 @@ import { UtilService } from 'src/app/services/guard/utils/util.service';
 export class LessonsComponent {
 
   lessons:any;
-  constructor(private http:HttpClient,public util:UtilService){
+  constructor(private http:HttpApisService,public util:UtilService){
     this.getLessonsOfToday()
     
   }
@@ -21,10 +21,17 @@ export class LessonsComponent {
     let month = date.getMonth() + 1;
     let year = date.getFullYear();  
     let currentDate = `${year}-${month}-${day}`;  
-    this.http.get<any>("https://academytracker.onrender.com/getAllLessonsOfDate?date='"+currentDate+"'&teacherId="+teacherId,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
-    .subscribe((res)=>{   
+    this.http.get("getAllLessonsOfDate?date='"+currentDate+"'&teacherId="+teacherId)
+    .subscribe((res)=>{  
+      if(res.lessons[0])
+      {
         this.lessons=res.lessons 
-        console.log(this.lessons)
+      }
+      else
+      {
+        this.lessons=undefined
+      }  
+        
     }) 
   }
 
@@ -33,26 +40,30 @@ export class LessonsComponent {
     const price=document.getElementById(lessonId) as HTMLInputElement
     const value=price.value
     const testData={id:lessonId,data:{price:value,paied:1}}
-    this.http.post<any>('https://academytracker.onrender.com/findLessonAndUpdate',testData,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}}).subscribe(res=>{
+
+    this.http.post('findLessonAndUpdate',testData).subscribe(res=>{
       this.getLessonsOfToday()
-    })
-     
+    }) 
+
   }
 
   onChange($event:any){
     const teacherId=localStorage.getItem('teacherId')  
-     const currentDate= $event.target.value
-    this.http.get<any>("https://academytracker.onrender.com/getAllLessonsOfDate?date='"+currentDate+"'&teacherId="+teacherId,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
+    const currentDate= $event.target.value
+
+    this.http.get("getAllLessonsOfDate?date='"+currentDate+"'&teacherId="+teacherId)
     .subscribe((res)=>{   
-        if(res.lessons[0]){
-          this.lessons=res.lessons
+      console.log(res.lessons)
+        if(res.lessons[0])
+        {
+          this.lessons=res.lessons 
         }
         else
         {
           this.lessons=undefined
-        }
-         
-        
+        } 
     }) 
+
   }
+
 }

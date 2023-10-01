@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http'; 
+import { Router } from '@angular/router'; 
+import { HttpApisService } from 'src/app/services/apisService/http-apis.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -13,7 +13,7 @@ export class LoginComponent {
   errorMessage:string|undefined
 
   constructor(
-    private router:Router,private http:HttpClient){
+    private router:Router,private http:HttpApisService){
     this.form = new FormGroup({
       email: new FormControl('',[Validators.required,Validators.minLength(5),Validators.email]),
       password: new FormControl('',[Validators.required,Validators.minLength(6)])
@@ -26,12 +26,11 @@ export class LoginComponent {
       let testData=new FormData(); 
       testData.append('email',form.value.email);
       testData.append('password',form.value.password);
-      this.http.post<any>('https://academytracker.onrender.com/auth/login',testData)
+      this.http.post('auth/login',testData)
       .subscribe({  
         next: res=>{   
             localStorage.setItem('teacherId',res.teacherId) 
             localStorage.setItem("token",res.token)
-           
         },
         error:err=>{ 
           this.errorMessage=err.error.message

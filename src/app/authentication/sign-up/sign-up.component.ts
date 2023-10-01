@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { HttpApisService } from 'src/app/services/apisService/http-apis.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -14,7 +14,7 @@ export class SignUpComponent {
   validResponse=true
   errorMessage:string|undefined
 
-  constructor(private router:Router,private http:HttpClient){
+  constructor(private router:Router,private http:HttpApisService){
     this.form = new FormGroup({
       firstName:new FormControl('',[Validators.required,Validators.minLength(3)]),
       lastName:new FormControl('',[Validators.required,Validators.minLength(3)]),
@@ -35,13 +35,11 @@ export class SignUpComponent {
       testData.append('phoneNumber',form.value.phoneNumber);
       testData.append('email',form.value.email);
       testData.append('password',form.value.password);
-      this.http.put<any>('https://academytracker.onrender.com/auth/signUp',testData)
+      this.http.put('auth/signUp',testData)
       .subscribe({
-        next: res=>{
-          
+        next: res=>{ 
         },
-        error:err=>{
-         
+        error:err=>{ 
           this.errorMessage=err.error.message
           setTimeout(()=>{
             this.errorMessage=undefined;

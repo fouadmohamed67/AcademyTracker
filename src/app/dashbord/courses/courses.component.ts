@@ -1,8 +1,7 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { DashbordComponent } from '../dashbord.component';
+import { FormControl, FormGroup, Validators } from '@angular/forms'; 
 import { Router } from '@angular/router';
+import { HttpApisService } from 'src/app/services/apisService/http-apis.service';
 @Component({
   selector: 'app-courses',
   templateUrl: './courses.component.html',
@@ -17,7 +16,7 @@ export class CoursesComponent {
   message:any;
   typeMessage:any;
 
-  constructor(private http:HttpClient,private router:Router){
+  constructor(private http:HttpApisService,private router:Router){
     this.form = new FormGroup({
       courseName: new FormControl('',[Validators.required,Validators.minLength(3)]),
       levelId: new FormControl('',[Validators.required ]), 
@@ -27,10 +26,9 @@ export class CoursesComponent {
   }
 
   getCourses(){ 
-    this.http.get<any>('https://academytracker.onrender.com/course',{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
+    this.http.get('course')
     .subscribe((res)=>{   
-      this.courses=res.courses;  
-      
+      this.courses=res.courses;
     }) 
   }
 
@@ -41,7 +39,8 @@ export class CoursesComponent {
       let testData = new FormData();
       testData.append('courseName', form.value.courseName );
       testData.append('levelId',form.value.levelId );
-      this.http.post<any>('https://academytracker.onrender.com/course',testData,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}}).subscribe(res=>{
+      this.http.post('course',testData)
+      .subscribe(res=>{
         form.reset();
         this.submited=false
         this.toggleClass();
@@ -51,7 +50,7 @@ export class CoursesComponent {
   }
 
   deleteCourse(id:number){ 
-      this.http.delete('https://academytracker.onrender.com/course?id='+id,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}}).subscribe({
+      this.http.delete('course?id='+id).subscribe({
         next:res=>{
           this.getCourses();  
         }
@@ -71,7 +70,7 @@ export class CoursesComponent {
   }
 
   getLevels(){
-    this.http.get<any>('https://academytracker.onrender.com/level',{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
+    this.http.get('level')
     .subscribe((res)=>{   
       this.levels=res.levels;
     }) 

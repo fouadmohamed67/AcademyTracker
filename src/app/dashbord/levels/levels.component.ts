@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { HttpApisService } from 'src/app/services/apisService/http-apis.service';
 
 @Component({
   selector: 'app-levels',
@@ -17,14 +18,16 @@ export class LevelsComponent {
   typeMessage:any;
   countCourses:any;
   countStudent:any;
-  constructor(private http:HttpClient){
+
+  constructor(private http:HttpApisService){
+
     this.form = new FormGroup({
-      levelName: new FormControl('',[Validators.required,Validators.minLength(3)])
-       
+      levelName: new FormControl('',[Validators.required,Validators.minLength(3)]) 
     });
+
     this.getCoursesPerLevel();
-   this.getStudentPerLevel();
-   this.getLevels();
+    this.getStudentPerLevel();
+    this.getLevels();
    
   } 
 
@@ -34,7 +37,7 @@ export class LevelsComponent {
     { 
       let testData = new FormData();
       testData.append('levelName', form.value.levelName ); 
-      this.http.post<any>('https://academytracker.onrender.com/level',testData,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
+      this.http.post('level',testData)
       .subscribe({
        next:(res)=>{ 
         this.getCoursesPerLevel();
@@ -66,7 +69,7 @@ export class LevelsComponent {
 
   deletelevel(id:number){
      
-      this.http.delete('https://academytracker.onrender.com/level?id='+id,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}}).subscribe({
+      this.http.delete('level?id='+id).subscribe({
         next:res=>{
           this.getLevels(); 
           this.getCoursesPerLevel();
@@ -94,25 +97,30 @@ export class LevelsComponent {
   }
 
  async getLevels(){
-    this.http.get<any>('https://academytracker.onrender.com/level',{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
-    .subscribe(   res =>{   
+
+    this.http.get('level')
+    .subscribe(res =>{   
       this.levels=res.levels;
-      
-    }) 
+    })
+
   }
 
   getStudentPerLevel(){
-    this.http.get<any>('https://academytracker.onrender.com/studentPerLevel',{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
+
+    this.http.get('studentPerLevel')
     .subscribe(res=>{   
       this.countStudent=res.countStudent;  
     }) 
+
   }
 
   getCoursesPerLevel(){
-    this.http.get<any>('https://academytracker.onrender.com/coursesPerLevel',{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
+
+    this.http.get('coursesPerLevel')
     .subscribe(res=>{   
       this.countCourses=res.countCourses;  
-    }) 
+    })
+     
   }
 
   toggleClass() { 

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { HttpApisService } from 'src/app/services/apisService/http-apis.service';
  
 @Component({
   selector: 'app-students',
@@ -17,7 +18,9 @@ export class StudentsComponent {
   message:any;
   typeMessage:any;
   students:any;
-  constructor(private http:HttpClient,private router:Router){
+
+  constructor(private http:HttpApisService,private router:Router){
+
     this.form = new FormGroup({
       firstName: new FormControl('',[Validators.required,Validators.minLength(3)]), 
       lastName: new FormControl('',[Validators.required,Validators.minLength(3)]), 
@@ -27,30 +30,33 @@ export class StudentsComponent {
       levelId:new FormControl('',[Validators.required]) ,
        
     }); 
+
     this.getStudents();
-   this.getLevels(); 
+    this.getLevels(); 
   } 
 
   onChange($event:any){ 
    
     const levelId=$event.target.value
     const teacherId=localStorage.getItem('teacherId') 
+    
     if(isNaN(levelId))
     {
-      this.http.get<any>('https://academytracker.onrender.com/studentOfTeacher?teacherId='+teacherId,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
-    .subscribe(res=>{    
-       this.students=res.students; 
-    }) 
-    return
+      this.http.get('studentOfTeacher?teacherId='+teacherId)
+      .subscribe(res=>{    
+        this.students=res.students; 
+      }) 
+      return
     } 
-    this.http.get<any>('https://academytracker.onrender.com/studentOfTeacher?teacherId='+teacherId+'&level.id='+levelId,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
+
+    this.http.get('studentOfTeacher?teacherId='+teacherId+'&level.id='+levelId)
     .subscribe(res=>{    
        this.students=res.students; 
 
     }) 
   }
   createStudent(form:FormGroup){
-    console.log(this.form)
+    
     this.submited=true
     if(this.form.valid)
     { 
@@ -63,7 +69,7 @@ export class StudentsComponent {
         'levelId':form.value.levelId,
         'teacherId':localStorage.getItem('teacherId')
       };  
-      this.http.post<any>('https://academytracker.onrender.com/student',testData,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
+      this.http.post('student',testData)
       .subscribe({
        next:(res)=>{ 
        
@@ -92,15 +98,17 @@ export class StudentsComponent {
   }
  
  async getLevels(){
-    this.http.get<any>('https://academytracker.onrender.com/level',{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
+
+    this.http.get('level')
     .subscribe( res =>{   
       this.levels=res.levels; 
     }) 
   } 
   getStudents(){
+
     const teacherId=localStorage.getItem('teacherId')
      
-    this.http.get<any>('https://academytracker.onrender.com/studentOfTeacher?teacherId='+teacherId,{headers:{'Authorization':'Bearer '+localStorage.getItem('token')}})
+    this.http.get('studentOfTeacher?teacherId='+teacherId)
     .subscribe(res=>{   
        this.students=res.students;  
        

@@ -10,8 +10,7 @@
         </div>
        
     </div>
-    <div *ngIf="lessons" class=" grid mb-8 border border-gray-200 rounded-lg shadow-sm   md:mb-12 md:grid-cols-1">
-        
+    <div *ngIf="lessons" class=" grid mb-8 border border-gray-200 rounded-lg shadow-sm   md:mb-12 md:grid-cols-1"> 
         <h1 class="ml-4 mt-4">lessons of : {{util.dateFromDateObject(lessons[0].Date)}}     ({{util.getDay(lessons[0].day)}})  </h1>
         <div *ngFor="let lesson of lessons" class="flex flex-row justify-between p-8 bg-white border-gray-200 rounded-b-lg border-b  ">
             <div class="  text-gray-500  ">
